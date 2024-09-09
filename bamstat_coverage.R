@@ -1,6 +1,6 @@
 # bamstat04 calculate coverage by exon for each sex
 # Sophie Orzechowski
-# Jan 2024
+# January 2024
 
 library(dplyr)
 library(tidyr)

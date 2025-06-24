@@ -7,6 +7,8 @@
 library(ggplot2)
 library(scales)
 show_col(hue_pal()(10))
+
+
 ####1####
 # Set working directory
 setwd("~/PhD research/Neo sex chromosome/findZX/2022-12-21/results/Entomyzon/output/no_synteny/tables")

@@ -27,7 +27,7 @@ The software and programs used in this manuscript include:
 - [Phasing gametologs](#phasing-gametologs)
 - [Creating alignments of loci across the neo-sex chromosomes](#creating-alignments-of-loci-across-the-neo-sex-chromosomes)
 - [Expected likelihood weights](#expected-likelihood-weights)
-- [Likelihood ratio test of mtDNA and nuclear topologies](#likelihood-ratio-test-of-mtDNA-and-nuclear-topologes)
+- [Likelihood ratio test of mtDNA and nuclear topologies](#likelihood-ratio-test-of-mtDNA-and-nuclear-topologies)
 
 ## Assembling genomes and scaffolding with HiC
 ## TOGA genome annotation

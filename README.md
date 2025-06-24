@@ -23,7 +23,7 @@ The software and programs used in this manuscript include:
 
 
 # Contents
-- [Assembling genomes and scaffolding with HiC](#assembling-genomes-and-scaffolding-with-hic)
+- [Assembling genomes, polishing genomes, and scaffolding with HiC](#assembling-genomes-polishing-genomes-and-scaffolding-with-hic)
 - [TOGA genome annotation](#toga-genome-annotation)
 - [Phasing gametologs](#phasing-gametologs)
 - [Creating alignments of loci across the neo-sex chromosomes](#creating-alignments-of-loci-across-the-neo-sex-chromosomes)

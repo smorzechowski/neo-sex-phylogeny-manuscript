@@ -28,6 +28,33 @@ The software and programs used in this manuscript include:
 - [Creating alignments of loci across the neo-sex chromosomes](#creating-alignments-of-loci-across-the-neo-sex-chromosomes)
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Assmbling genomes and scaffolding with HiC
 ## Phasing gametologs
 ## Creating alignments of loci across the neo-sex chromosomes

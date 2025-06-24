@@ -1,0 +1,19 @@
+#! /bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p serial_requeue
+#SBATCH -e log/orthologs%A.err
+#SBATCH -o log/orthologs%A.out
+#SBATCH -J orthologs
+#SBATCH --mem=1g
+#SBATCH --time=1:00:00
+
+module load python
+source activate ncbi_datasets
+
+gene_symbol=$1
+filename=$1
+
+datasets download gene symbol ${gene_symbol} --filename ${filename}.zip --include gene,cds,protein --ortholog birds
+
+unzip ${gene_symbol}.zip -d ${gene_symbol}

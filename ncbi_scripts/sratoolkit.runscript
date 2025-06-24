@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Pull SRA for Melithreptus lunatus
+#accession_list='SRR17431367'
+#output_directory='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/13-sratoolkit/Mlunatus'
+
+# Pull SRA for Melithreptus albogularis
+#accession_list='SRR17431368'
+#output_directory='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/13-sratoolkit/Malbogularis'
+
+# Pull SRA (multiple) for Grantiella picta
+accession_list='gpicta.txt'
+output_directory='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/13-sratoolkit/Gpicta'
+
+sbatch sratoolkit.jobscript $accession_list $output_directory
+
+#for i in $(cat $accession_list)
+#do
+#	sbatch sratoolkit.jobscript $i $output_directory
+#done

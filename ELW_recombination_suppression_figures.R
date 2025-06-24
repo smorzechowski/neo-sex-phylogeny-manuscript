@@ -1,5 +1,5 @@
 # R script to visualize Expected Likelihood Weight Analyses
-# For creating Figures X and X in the finalized manuscript
+# For creating Figures 6 and 7 in the finalized manuscript
 # Sophie MacRae Orzechowski
 # February 2024
 

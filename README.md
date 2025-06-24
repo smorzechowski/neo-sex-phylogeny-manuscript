@@ -1,4 +1,4 @@
-## Scripts associated with the manuscript "Phylogenetic distribution and recombination suppression of neo-sex chromosomes in honeyeaters (Aves: Meliphagidae)
+## Scripts associated with the manuscript "Phylogenetic distribution and recombination suppression of neo-sex chromosomes in honeyeaters (Aves: Meliphagidae)"
 
 This readme provides an overview of the analyses conducted in this manuscript. 
 
@@ -6,6 +6,7 @@ The software and programs used in this manuscript include:
 
 - [FindZX](https://github.com/hsigeman/findZX)
 - [TOGA](https://github.com/hillerlab/TOGA)
+  - lastz
 - [flye](https://github.com/mikolmogorov/Flye)
 - [NextPolish](https://github.com/Nextomics/NextPolish)
 - [YAHS](https://github.com/c-zhou/yahs)
@@ -162,9 +163,13 @@ hicaln="/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-06-1
 
 ```
 
-
-
 ## TOGA genome annotation
+
+To annotate genomes I used TOGA, which uses whole-genome alignment with a high quality genome to find and annotate orthologous genes, infer exon-intron structure, gene loss, gene duplication, and identify pseudogenes.
+
+
+
+
 ## Phasing gametologs
 ## Creating alignments of loci across the neo-sex chromosomes
 ## Expected likelihood weights

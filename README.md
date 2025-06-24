@@ -147,6 +147,18 @@ echo "Finished Mapping Pipeline through Duplicate Removal"
 ```
 Next, I ran YAHS to scaffold the contigs using the HiC-aligned reads.
 ```
+source activate pretextmap
+# installed samtools within pretextmap env too!
+module load jdk/20.0.1-fasrc01
+
+
+out="cyan_out"
+outdir="."
+contigs="cyan_flye_NP_assembly_incl_addedZandW_v2_rm1kb.fasta" # need to be indexed, i.e., ${test}.contigs.fasta.gz.fai is presented
+hicaln="/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-06-14/01-yahs/dedup/HiC_cyan_204_rep1.bam" # could be .bed, .bam or .bin file
+
+#### run yahs scaffolding
+/n/home09/smorzechowski/bin/yahs/yahs -o ${outdir}/${out} ${contigs} ${hicaln} || exit 1
 
 ```
 

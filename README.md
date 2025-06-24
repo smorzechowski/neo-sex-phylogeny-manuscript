@@ -7,6 +7,7 @@ The software and programs used in this manuscript include:
 - [FindZX](https://github.com/hsigeman/findZX)
 - [TOGA](https://github.com/hillerlab/TOGA)
 - [flye](https://github.com/mikolmogorov/Flye)
+- -[NextPolish](https://github.com/Nextomics/NextPolish)
 - [YAHS](https://github.com/c-zhou/yahs)
 - [freebayes](https://github.com/freebayes/freebayes)
 - [gblocks](https://www.biologiaevolutiva.org/jcastresana/Gblocks.html)
@@ -29,7 +30,26 @@ The software and programs used in this manuscript include:
 - [Expected likelihood weights](#expected-likelihood-weights)
 - [Likelihood ratio test of mtDNA and nuclear topologies](#likelihood-ratio-test-of-mtDNA-and-nuclear-topologies)
 
-## Assembling genomes and scaffolding with HiC
+## Assembling genomes, polishing genomes, and scaffolding with HiC
+
+To assemble the genomes with Oxford Nanopore long reads, I used the assembler flye v.2.8.1:
+```
+#--nano-raw: indicates uncorrected Nanopore reads. Options for corrected reads.
+#-g: Approximate genome size.
+#-o: path where assembly will be output
+#--threads: number of threads used for assembly
+
+flye --nano-raw $cyan_reads_sans_addedZ_NRC_ZPAR -g 1g \
+-o /n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2021-09-29/01-flye/cyan_flye_assembly_sans_addedZ_NRC_ZPAR --threads 16
+```
+
+To polish genomes, I used the program NextPolish: 
+```
+
+```
+
+
+
 ## TOGA genome annotation
 ## Phasing gametologs
 ## Creating alignments of loci across the neo-sex chromosomes

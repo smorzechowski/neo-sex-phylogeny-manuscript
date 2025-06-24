@@ -1,0 +1,19 @@
+#!/bin/bash
+
+#Get gtf file for Mmel
+#bed='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Mmel/galGal6_to_Mmel_5Z.annotation.bed'
+#output='galGal6_to_Mmel_5Z.annotation.gtf'
+
+#Get gtf file for HeHo
+#bed='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/HeHo/galGal6_to_HeHo_5Z.annotation.bed'
+#output='galGal6_to_HeHo_5Z.annotation.gtf'
+
+#Get gtf file for Striat
+#bed='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Striat/galGal6_to_Striat_5Z.annotation.bed'
+#output='galGal6_to_Striat_5Z.annotation.gtf'
+
+#Get gft file for Chry
+bed='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Chry/galGal6_to_Chry_5Z.annotation.bed'
+output='galGal6_to_Chry_5Z.annotation.gtf'
+
+sbatch bed2gtf_ucsc.jobscript $bed $output

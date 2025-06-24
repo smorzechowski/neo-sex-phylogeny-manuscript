@@ -1,0 +1,22 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p test
+#SBATCH -e log/format_fasta%A.err
+#SBATCH -o log/format_fasta%A.out
+#SBATCH -J format_fasta
+#SBATCH --mem=2g
+#SBATCH --time=12:00:00
+
+fasta=$1
+species=$2
+
+
+# First, split each subset fasta file into separate files per sequence
+# Do this in a separate results directory I guess
+
+cat $fasta | awk '{
+        if (substr($0, 1, 1)==">") {filename=(substr($0,2) ".fasta")}
+        print $0 > filename
+}'
+

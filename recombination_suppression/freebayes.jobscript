@@ -1,0 +1,31 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p edwards
+#SBATCH -e log/freebayes%A.err
+#SBATCH -o log/freebayes%A.out
+#SBATCH -J freebayes
+#SBATCH --mem=40g
+#SBATCH --time=10-00:00
+
+# OF just the neo-Z, mind you! We don't need anything else really.
+BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+INDEXFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa.fai'
+BAMLIST='cyan_bams.txt'
+SPECIES='Ecyanotis'
+
+module load python
+source activate freebayes
+#module load gcc/9.5.0-fasrc01
+
+export PERL5LIB=/
+
+#   --report-monomorphic
+#   Report even loci which appear to be monomorphic, and report all
+#   considered alleles, even those which are not in called genotypes.
+#   Loci which do not have any potential alternates have '.' for ALT.
+
+
+# call variants assuming a diploid sample
+freebayes -f ${GENOME} --bam-list ${BAMLIST} --targets $BEDFILE --report-monomorphic > Ecyanotis_neoZ_Ecyan_HiC_v1.0_sansW.vcf

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+#gtf="/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/NCBI_to_Cyan.gff"
+#prefix="galGal6_to_entCya2.annotation.liftoff"
+
+#gtf='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/Ecyan_HiC_v1.0_toga_rnaseq.anno.gff'
+#prefix="Ecyan_HiC_v1.0_toga_rnaseq.anno"
+
+# convert zebra finch gff to bed
+#gtf='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ZebraFinchAssembly/GCF_003957565.2_bTaeGut1.4.pri/GCF_003957565.2_bTaeGut1.4.pri_genomic.gff'
+#prefix='GCF_003957565.2_bTaeGut1.4.pri_genomic'
+
+# convert galGal7 gtf to bed
+# convert chickan ggal7 gff to bed
+gtf='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/GCF_016699485.2_bGalGal1.mat.broiler.GRCg7b/GCF_016699485.2_bGalGal1.mat.broiler.GRCg7b_genomic.gff'
+prefix='GRCg7b_genomic_anno'
+
+sbatch gtf2bed12.jobscript $gtf $prefix

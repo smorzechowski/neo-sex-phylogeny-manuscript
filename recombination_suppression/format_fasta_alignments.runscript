@@ -1,0 +1,127 @@
+#!/bin/bash
+
+# E cyanotis Wlinked
+#fasta='subset_formatted_Ecyanotis_transcripts_phased_Wlinked.fasta'
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments
+#species='Ecyanotis'
+
+# E cyanotis Zlinked
+#fasta='subset_formatted_Ecyanotis_transcripts_phased_Zlinked.fasta'
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments
+#species='Ecyanotis'
+
+# N leucotis Wlinked
+#fasta='subset_formatted_Nleucotis_transcripts_phased_Wlinked.fasta'
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments
+#species='Nleucotis'
+
+# N leucotis Zlinked
+#species='Nleucotis'
+#haplotype='Zlinked'
+#fasta=subset_formatted_${species}_transcripts_phased_${haplotype}.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments
+
+# P cit Wlinked
+#species='Pcitreogularis'
+#haplotype='Wlinked'
+#fasta=subset_formatted_${species}_transcripts_phased_${haplotype}.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments
+
+# P cit Zlinked
+#species='Pcitreogularis'
+#haplotype='Zlinked'
+#fasta=subset_formatted_${species}_transcripts_phased_${haplotype}.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments
+
+# G picta haplotype
+#species='Gpicta'
+#fasta=subset_formatted_${species}_transcripts_phased.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments
+
+# M albogularis haplotype
+#species='Malbogularis'
+#fasta=subset_formatted_${species}_transcripts_phased.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments
+
+# Mmel haplotype
+#species='Mmel'
+#fasta=namefix_subset_headcleaned_${species}_Chr5_Z_transcripts.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments
+
+# Striat haplotype
+#species='Striat'
+#fasta=namefix_subset_headcleaned_${species}_Chr5_Z_transcripts.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments
+
+# HeHo haplotype
+#species='HeHo'
+#fasta=namefix_subset_headcleaned_${species}_Chr5_Z_transcripts.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments
+
+# entCya2 genome
+#species=entCya2
+#fasta=subset_headcleaned_entCya2_transcripts.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/03-gametologs
+
+# entCya2 genome with forward strand
+#species=entCya2
+#fasta=subset_headcleaned_entCya2_transcripts_fstrand.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/03-gametologs
+#sed 's/>/>Ecyan_/I' $filepath/$fasta > namefix_subset_headcleaned_entCya2_transcripts_fstrand.fasta
+
+#sbatch split_fasta_files.jobscript namefix_subset_headcleaned_entCya2_transcripts_fstrand.fasta $species
+
+# E cyanotis Wlinked --revsort
+#fasta='subset_formatted_Ecyanotis_transcripts_phased_Wlinked_revsort_namefix.fasta'
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/03-gametologs
+#species='Ecyanotis'
+#sbatch split_fasta_files.jobscript $filepath/$fasta $species
+
+# E cyanotis Zlinked --revsort
+#fasta='subset_formatted_Ecyanotis_transcripts_phased_Zlinked_revsort_namefix.fasta'
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/03-gametologs
+#species='Ecyanotis'
+#sbatch split_fasta_files.jobscript $filepath/$fasta $species
+
+# N leucotis Wlinked --revsort
+#fasta='subset_formatted_Nleucotis_transcripts_phased_Wlinked_revsort.fasta'
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/03-gametologs
+#species='Nleucotis'
+#sbatch split_fasta_files.jobscript $filepath/$fasta $species
+
+# N leucotis Zlinked --revsort
+#species='Nleucotis'
+#haplotype='Zlinked'
+#fasta=subset_formatted_${species}_transcripts_phased_${haplotype}_revsort.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/03-gametologs
+#sbatch split_fasta_files.jobscript $filepath/$fasta $species
+
+# P cit Wlinked --revsort
+#species='Pcitreogularis'
+#haplotype='Wlinked'
+#fasta=subset_formatted_${species}_transcripts_phased_${haplotype}_revsort.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/03-gametologs
+#sbatch split_fasta_files.jobscript $filepath/$fasta $species
+
+# P cit Zlinked --revsort
+#species='Pcitreogularis'
+#haplotype='Zlinked'
+#fasta=subset_formatted_${species}_transcripts_phased_${haplotype}_revsort.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/03-gametologs
+#sbatch split_fasta_files.jobscript $filepath/$fasta $species
+
+# G picta haplotype --revsort
+#species='Gpicta'
+#fasta=subset_formatted_${species}_transcripts_phased_revsort.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/03-gametologs
+#sbatch split_fasta_files.jobscript $filepath/$fasta $species
+
+# M albogularis haplotype --revsort
+#species='Malbogularis'
+#fasta=subset_formatted_${species}_transcripts_phased_revsort.fasta
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/03-gametologs
+#sbatch split_fasta_files.jobscript $filepath/$fasta $species
+
+# Combining everything revsorted into fasta files for alignment (guaranteed to be in the right order and strand)
+transcripts=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments/Ecyan_transcript_id_present_longest_transcript.txt
+sbatch combine_fasta_alignments.jobscript $transcripts

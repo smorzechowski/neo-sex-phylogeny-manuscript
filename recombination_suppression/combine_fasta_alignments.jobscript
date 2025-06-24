@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p test
+#SBATCH -e log/format_fasta%A.err
+#SBATCH -o log/format_fasta%A.out
+#SBATCH -J format_fasta
+#SBATCH --mem=2g
+#SBATCH --time=12:00:00
+
+transcripts=$1
+
+# Next, combine (concatenate) all files of the same transcript together
+
+# strip the transcript names
+sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' $transcripts > transcripts_stripped.txt
+
+for transcript in $(< transcripts_stripped.txt);
+do cat *${transcript}*.fasta > ${transcript}_alignment_revsort.fasta; done

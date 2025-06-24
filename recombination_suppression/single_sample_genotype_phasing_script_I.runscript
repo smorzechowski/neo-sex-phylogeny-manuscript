@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# run G. picta
+#vcf='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/10-freebayes/Gpicta_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup.vcf'
+#output='Gpicta_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+
+
+# Run M. albogularis
+vcf='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/10-freebayes/Malbogularis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup.vcf'
+output='Malbogularis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+
+sbatch single_sample_genotype_phasing_script_I.sh $vcf $output

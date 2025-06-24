@@ -1,0 +1,19 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p serial_requeue
+#SBATCH -e log/raxml%A.err
+#SBATCH -o log/raxml%A.out
+#SBATCH -J raxml
+#SBATCH --mem=2g
+#SBATCH --time=0-02:00
+
+
+
+echo "the alignment file is $1"
+alignment=$1
+file=${1##*/}
+basenameprefix=`echo $file |sed 's/\.maf//g'`
+
+
+/n/home09/smorzechowski/bin/standard-RAxML/raxmlHPC-AVX -m GTRGAMMAX -f a -N autoMRE -n ${basenameprefix}.tree -s $alignment -x 30492 -p 30492

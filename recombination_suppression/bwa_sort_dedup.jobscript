@@ -1,0 +1,82 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 12
+#SBATCH -p test
+#SBATCH -e log/bwa_sort_dedup%A.err
+#SBATCH -o log/bwa_sort_dedup%A.out
+#SBATCH -J bwa_sort_dedup
+#SBATCH --mem=60g
+#SBATCH --time=12:00:00
+
+# Input parameters
+RAW_DIR=$1
+DEDUP_DIR=$2
+TMP_DIR=$3
+GENOME=$4
+INDEXBASE=$5
+FASTQ1=$6
+FASTQ2=$7
+CPU=$8
+FLOWCELL=$9
+LANE=${10}
+FLOWCELL_BARCODE=${11}
+SAMPLE=${12}
+PLATFORM=${13}
+LIBPREP=${14}
+
+module purge
+module load python
+source activate samtools
+module load jdk/20.0.1-fasrc01
+
+PICARD='/n/home09/smorzechowski/bin/picard/build/libs/picard.jar'
+# this comes from ArimaGenomics mapping_pipeline
+STATS='/n/home09/smorzechowski/bin/get_stats.pl'
+BWA_PATH='/n/home09/smorzechowski/bin/bwa'
+
+#Check output directories exist & create them as needed
+[ -d $RAW_DIR ] || mkdir -p $RAW_DIR
+[ -d $TMP_DIR ] || mkdir -p $TMP_DIR
+[ -d $DEDUP_DIR ] || mkdir -p $DEDUP_DIR
+
+# create bwa index if necessary - only do this once
+[ -f ${INDEXBASE}.sa ] || $BWA_PATH/bwa index -p $INDEXBASE $GENOME
+
+# call bwa and convert to bam, directly sort
+# https://www.biostars.org/p/319730/
+# -M : "mark shorter split hits as secondary
+# -R : Read group information
+# '@RG\tID:$ID\tSM:$SM\tLB:$LB\tPU:$PU\tPL:$PL'
+
+$BWA_PATH/bwa mem $INDEXBASE $FASTQ1 $FASTQ2 -t $CPU -M -R $(echo "@RG\tID:$FLOWCELL"_"$LANE\tSM:$SAMPLE\tLB:$LIBPREP\tPU:$FLOWCELL_BARCODE"_"$LANE"_"$SAMPLE\tPL:$PLATFORM") \
+| samtools sort -@ $CPU --output-fmt BAM -o $RAW_DIR/${SAMPLE}_bwa_sorted.bam
+
+# index the sorted bam files
+samtools index $RAW_DIR/${SAMPLE}_bwa_sorted.bam
+
+# get summary of the alignment
+samtools flagstat $RAW_DIR/${SAMPLE}_bwa_sorted.bam > $RAW_DIR/${SAMPLE}_bwa_sorted.bam.flagstat
+
+# Mark duplicates with Picard
+#-XX:-UseGCOverheadLimit -Djava.io.tmpdir=temp/ \
+java -Xmx30G \
+-jar $PICARD MarkDuplicates \
+TMP_DIR=$TMP_DIR \
+INPUT=$RAW_DIR/${SAMPLE}_bwa_sorted.bam \
+OUTPUT=$DEDUP_DIR/${SAMPLE}_bwa_sorted_dedup.bam \
+METRICS_FILE=$DEDUP_DIR/${SAMPLE}_dedup_metrics.txt \
+REMOVE_DUPLICATES=false \
+TAGGING_POLICY=All \
+ASSUME_SORTED=true \
+
+# Index the dedup bam files again
+samtools index $DEDUP_DIR/${SAMPLE}_bwa_sorted_dedup.bam
+
+# output stats on mapping using ArimaGenomics perl script
+perl $STATS $DEDUP_DIR/${SAMPLE}_bwa_sorted_dedup.bam > $DEDUP_DIR/${SAMPLE}_bwa_sorted_dedup.bam.stats
+
+# validate the bam files
+java -Xmx30G \
+-jar $PICARD ValidateSamFile \
+      I=$DEDUP_DIR/${SAMPLE}_bwa_sorted_dedup.bam \
+      MODE=SUMMARY

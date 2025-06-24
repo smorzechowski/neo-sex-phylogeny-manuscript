@@ -1,0 +1,17 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p test
+#SBATCH -e log/seqtk%A.err
+#SBATCH -o log/seqtk%A.out
+#SBATCH -J subset_seqtk
+#SBATCH --mem=5g
+#SBATCH --time=12:00:00
+
+sequences=$1
+genes=$2
+
+file=${sequences##*/}
+
+# subset transcripts
+$HOME/bin/seqtk/seqtk subseq $sequences $genes  > subset_${file}

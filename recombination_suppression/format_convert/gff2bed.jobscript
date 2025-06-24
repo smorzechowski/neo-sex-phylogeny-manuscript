@@ -1,0 +1,16 @@
+#! /bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p test
+#SBATCH -e log/gff2bed%A.err
+#SBATCH -o log/gff2bed%A.out
+#SBATCH -J gff2bed
+#SBATCH --mem=10g
+#SBATCH --time=1:00:00
+
+GTF=$1
+PREFIX=$2
+
+# convert gff to bed
+singularity exec --cleanenv /n/home09/smorzechowski/bin/agat_0.8.0--pl5262hdfd78af_0.sif \
+agat_convert_sp_gff2bed.pl -gff $GTF -o ${PREFIX}.bed

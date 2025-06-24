@@ -1,0 +1,20 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p serial_requeue
+#SBATCH -e log/rename%A.err
+#SBATCH -o log/rename%A.out
+#SBATCH -J rename
+#SBATCH --mem=1g
+#SBATCH --time=0-01:00
+
+
+transcripts=$1
+alignment=$2
+
+echo "the alignment file is $2"
+file=${2##*/}
+basenameprefix=`echo $file |sed 's/\.maf//g'`
+
+
+sed -e 's/_'"$transcripts"'\.[[:digit:]]\+\.[[:digit:]]\+//g' $alignment | sed -e 's/_R_//g' > ${basenameprefix}_renamed.maf

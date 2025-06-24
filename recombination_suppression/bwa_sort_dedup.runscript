@@ -1,0 +1,164 @@
+#!/bin/bash
+
+# Map Cyan_204_F
+#RAW_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/raw'
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#TMP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/tmp'
+# removed the neo-W from the assembly: important
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#INDEXBASE='Ecyan_HiC_v1.0_sansW'
+# sym link for all trimmed Illumina fastq reads for E cyanotis
+#FASTQ1='data/PREP0053_SMacR10811A_F01v1_Cyan-204-1380-27Aug-H20_S38_L001_R1_001_val_1.fq.gz'
+#FASTQ2='data/PREP0053_SMacR10811A_F01v1_Cyan-204-1380-27Aug-H20_S38_L001_R2_001_val_2.fq.gz'
+#CPU='12'
+#FLOWCELL='A00794'
+#LANE='1'
+#FLOWCELL_BARCODE='HLLJYDSX2'
+#SAMPLE='Cyan_204_F'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0053'
+
+# Map Cyan_185_M
+#RAW_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/raw'
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#TMP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/tmp'
+# removed the neo-W from the assembly: important
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#INDEXBASE='Ecyan_HiC_v1.0_sansW'
+# sym link for all trimmed Illumina fastq reads for E cyanotis
+#FASTQ1='data/PREP0053_SMacR10811A_B01v1_Cyan-185-1283-16Oct-H20_S34_L001_R1_001_val_1.fq.gz'
+#FASTQ2='data/PREP0053_SMacR10811A_B01v1_Cyan-185-1283-16Oct-H20_S34_L001_R2_001_val_2.fq.gz'
+#CPU='12'
+#FLOWCELL='A00794'
+#LANE='1'
+#FLOWCELL_BARCODE='HLLJYDSX2'
+#SAMPLE='Cyan_185_M'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0053'
+
+# Map Nleu_365021_M
+#RAW_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/raw'
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#TMP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/tmp'
+# removed the neo-W from the assembly: important
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#INDEXBASE='Ecyan_HiC_v1.0_sansW'
+# sym link for all trimmed Illumina fastq reads for E cyanotis
+#FASTQ1='data/PREP0254_SOrze14568A_F01v1_Nleu_m_365021_S6_L001_R1_001_val_1.fq.gz'
+#FASTQ2='data/PREP0254_SOrze14568A_F01v1_Nleu_m_365021_S6_L001_R2_001_val_2.fq.gz'
+#CPU='12'
+#FLOWCELL='A00794'
+#LANE='1'
+#FLOWCELL_BARCODE='HJFFYDRX2'
+#SAMPLE='Nleu_365021_M'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0254'
+
+# Map Nleu_365022_F
+#RAW_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/raw'
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#TMP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/tmp'
+# removed the neo-W from the assembly: important
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#INDEXBASE='Ecyan_HiC_v1.0_sansW'
+# sym link for all trimmed Illumina fastq reads for E cyanotis
+#FASTQ1='data/PREP0254_SOrze14568A_G01v1_Nleu_f_365022_S7_L001_R1_001_val_1.fq.gz'
+#FASTQ2='data/PREP0254_SOrze14568A_G01v1_Nleu_f_365022_S7_L001_R2_001_val_2.fq.gz'
+#CPU='12'
+#FLOWCELL='A00794'
+#LANE='1'
+#FLOWCELL_BARCODE='HJFFYDRX2'
+#SAMPLE='Nleu_365022_F'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0254'
+
+# Map Pcit_336117_M
+#RAW_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/raw'
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#TMP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/tmp'
+# removed the neo-W from the assembly: important
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#INDEXBASE='Ecyan_HiC_v1.0_sansW'
+# sym link for all trimmed Illumina fastq reads for E cyanotis
+#FASTQ1='data/PREP0254_SOrze14568A_H01v1_Pcit_m_336117_S8_L001_R1_001_val_1.fq.gz'
+#FASTQ2='data/PREP0254_SOrze14568A_H01v1_Pcit_m_336117_S8_L001_R2_001_val_2.fq.gz'
+#CPU='12'
+#FLOWCELL='A00794'
+#LANE='1'
+#FLOWCELL_BARCODE='HJFFYDRX2'
+#SAMPLE='Pcit_336117_M'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0254'
+
+
+# Map Pcit_336106_F
+#RAW_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/raw'
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#TMP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/tmp'
+# removed the neo-W from the assembly: important
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#INDEXBASE='Ecyan_HiC_v1.0_sansW'
+# sym link for all trimmed Illumina fastq reads for E cyanotis
+#FASTQ1='data/PREP0254_SOrze14568A_B01v1_Pcit_f_336106_S2_L001_R1_001_val_1.fq.gz'
+#FASTQ2='data/PREP0254_SOrze14568A_B01v1_Pcit_f_336106_S2_L001_R2_001_val_2.fq.gz'
+#CPU='12'
+#FLOWCELL='A00794'
+#LANE='1'
+#FLOWCELL_BARCODE='HJFFYDRX2'
+#SAMPLE='Pcit_336106_F'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0254'
+
+# Map Mlun_M from NCBI
+#RAW_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/raw'
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#TMP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/tmp'
+# removed the neo-W from the assembly: important
+#GENOME='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/Ecyan_HiC_v1.0_sansW.fa'
+#INDEXBASE='Ecyan_HiC_v1.0_sansW'
+#FASTQ1='data/SRR17431367_1_val_1.fq.gz'
+#FASTQ2='data/SRR17431367_2_val_2.fq.gz'
+#CPU='12'
+#FLOWCELL='ncbi'
+#LANE='1.Mlun_M'
+#FLOWCELL_BARCODE='SRR_ncbi'
+#SAMPLE='Mlun_M'
+#PLATFORM='Illumina'
+#LIBPREP='lib1'
+
+# Map Malb_M from NCBI
+#RAW_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/raw'
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#TMP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/tmp'
+# removed the neo-W from the assembly: important
+#GENOME='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/Ecyan_HiC_v1.0_sansW.fa'
+#INDEXBASE='Ecyan_HiC_v1.0_sansW'
+#FASTQ1='data/SRR17431368_1_val_1.fq.gz'
+#FASTQ2='data/SRR17431368_2_val_2.fq.gz'
+#CPU='12'
+#FLOWCELL='ncbi'
+#LANE='1.Malb_M'
+#FLOWCELL_BARCODE='SRR_ncbi'
+#SAMPLE='Malb_M'
+#PLATFORM='Illumina'
+#LIBPREP='lib1'
+
+# Map Gpicta_M from NCBI
+RAW_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/raw'
+DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+TMP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/tmp'
+# removed the neo-W from the assembly: important
+GENOME='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/Ecyan_HiC_v1.0_sansW.fa'
+INDEXBASE='Ecyan_HiC_v1.0_sansW'
+FASTQ1='data/SRR_Gpicta_1_val_1.fq.gz'
+FASTQ2='data/SRR_Gpicta_2_val_2.fq.gz'
+CPU='12'
+FLOWCELL='ncbi'
+LANE='1.Gpicta_M'
+FLOWCELL_BARCODE='SRR_ncbi'
+SAMPLE='Gpicta_M'
+PLATFORM='Illumina'
+LIBPREP='libGpicta'
+
+
+sbatch bwa_sort_dedup.jobscript $RAW_DIR $DEDUP_DIR $TMP_DIR $GENOME $INDEXBASE $FASTQ1 $FASTQ2 $CPU $FLOWCELL $LANE $FLOWCELL_BARCODE $SAMPLE $PLATFORM $LIBPREP

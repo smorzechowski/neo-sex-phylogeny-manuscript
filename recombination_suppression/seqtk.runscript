@@ -1,0 +1,166 @@
+#!/bin/bash
+
+# subset transcripts for E. cyanotis Zlinked (388 longest isoform transcripts)
+#sequences='formatted_Ecyanotis_transcripts_phased_Zlinked.fasta'
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|Ecyanotis_Zlinked_|' $genes > Ecyanotis_Zlinked_tmp.txt
+#sbatch seqtk.jobscript $sequences Ecyanotis_Zlinked_tmp.txt
+
+# subset transcripts for E. cyanotis Wlinked (388 longest isoform transcripts)
+#sequences='formatted_Ecyanotis_transcripts_phased_Wlinked.fasta'
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|Ecyanotis_Wlinked_|' $genes > Ecyanotis_Wlinked_tmp.txt
+#sbatch seqtk.jobscript $sequences Ecyanotis_Wlinked_tmp.txt
+
+# subset transcripts for Nleucotis Zlinked (388 longest isoform transcripts)
+#species=Nleucotis
+#haplotype=Zlinked
+#sequences=formatted_${species}_transcripts_phased_${haplotype}.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_'"$haplotype"'_|' $genes > ${species}_${haplotype}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_${haplotype}_tmp.txt
+
+# subset transcripts for N. leucotis Wlinked (388 longest isoform transcripts)
+#species=Nleucotis
+#haplotype=Wlinked
+#sequences=formatted_${species}_transcripts_phased_${haplotype}.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_'"$haplotype"'_|' $genes > ${species}_${haplotype}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_${haplotype}_tmp.txt
+
+# subset transcripts for P. cit Zlinked (388 longest isoform transcripts)
+#species=Pcitreogularis
+#haplotype=Zlinked
+#sequences=formatted_${species}_transcripts_phased_${haplotype}.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_'"$haplotype"'_|' $genes > ${species}_${haplotype}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_${haplotype}_tmp.txt
+
+# subset transcripts for P. cit Wlinked (388 longest isoform transcripts)
+#species=Pcitreogularis
+#haplotype=Wlinked
+#sequences=formatted_${species}_transcripts_phased_${haplotype}.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_'"$haplotype"'_|' $genes > ${species}_${haplotype}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_${haplotype}_tmp.txt
+
+# subset transcripts for G. picta (388 longest isoform transcripts)
+#species=Gpicta
+#sequences=formatted_${species}_transcripts_phased.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_|' $genes > ${species}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_tmp.txt
+
+# subset transcripts for M. albogularis (388 longest isoform transcripts)
+#species=Malbogularis
+#sequences=formatted_${species}_transcripts_phased.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_|' $genes > ${species}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_tmp.txt
+
+# subset transcripts for Striat, headclean
+#sequences='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments/Striat_Chr5_Z_transcripts.fasta'
+#awk '{print $1}' $sequences > headcleaned_Striat_Chr5_Z_transcripts.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' $genes > genes_stripped.txt
+#grep -f genes_stripped.txt headcleaned_Striat_Chr5_Z_transcripts.fasta | awk '{print $1}' | sed -e 's/^>//g' > gene_list.txt
+#sbatch seqtk.jobscript headcleaned_Striat_Chr5_Z_transcripts.fasta gene_list.txt
+
+# subset transcripts for Chry, headclean
+sequences='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments/Chry_Chr5_Z_transcripts.fasta'
+awk '{print $1}' $sequences > headcleaned_Chry_Chr5_Z_transcripts.fasta
+genes='Ecyan_transcript_id_present_longest_transcript.txt'
+sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' $genes > genes_stripped.txt
+grep -f genes_stripped.txt headcleaned_Chry_Chr5_Z_transcripts.fasta | awk '{print $1}' | sed -e 's/^>//g' > gene_list.txt
+sbatch seqtk.jobscript headcleaned_Chry_Chr5_Z_transcripts.fasta gene_list.txt
+
+# subset transcripts for Mmel, headclean
+#sequences='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments/Mmel_Chr5_Z_transcripts.fasta'
+#awk '{print $1}' $sequences > headcleaned_Mmel_Chr5_Z_transcripts.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' $genes > genes_stripped.txt
+#grep -f genes_stripped.txt headcleaned_Mmel_Chr5_Z_transcripts.fasta | awk '{print $1}' | sed -e 's/^>//g' > gene_list.txt
+#sbatch seqtk.jobscript headcleaned_Mmel_Chr5_Z_transcripts.fasta gene_list.txt
+
+
+# subset transcripts for HeHo, headclean
+#sequences='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments/HeHo_Chr5_Z_transcripts.fasta'
+#awk '{print $1}' $sequences > headcleaned_HeHo_Chr5_Z_transcripts.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' $genes > genes_stripped.txt
+#grep -f genes_stripped.txt headcleaned_HeHo_Chr5_Z_transcripts.fasta | awk '{print $1}' | sed -e 's/^>//g' > gene_list.txt
+#sbatch seqtk.jobscript headcleaned_HeHo_Chr5_Z_transcripts.fasta gene_list.txt
+
+# subset transcripts for entCya2, headclean
+#sequences='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments/entCya2_transcripts.fasta'
+#awk '{print $1}' $sequences > headcleaned_entCya2_transcripts.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' $genes > genes_stripped.txt
+#grep -f genes_stripped.txt headcleaned_entCya2_transcripts.fasta | awk '{print $1}' | sed -e 's/^>//g' > gene_list.txt
+#sbatch seqtk.jobscript headcleaned_entCya2_transcripts.fasta $genes
+
+# subset forward strand transcripts for entCya2, headclean
+#sequences='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments/entCya2_transcripts.fasta'
+#awk '{print $1}' $sequences > headcleaned_entCya2_transcripts_fstrand.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' $genes > genes_stripped.txt
+#grep -f genes_stripped.txt headcleaned_entCya2_transcripts.fasta | awk '{print $1}' | sed -e 's/^>//g' > gene_list.txt
+#sbatch seqtk.jobscript headcleaned_entCya2_transcripts_fstrand.fasta $genes
+
+# subset transcripts for E. cyanotis -- revsort
+#sequences='formatted_Ecyanotis_transcripts_phased_Zlinked_revsort_namefix.fasta'
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|Ecyanotis_Zlinked_|' $genes > Ecyanotis_Zlinked_tmp.txt
+#sbatch seqtk.jobscript $sequences Ecyanotis_Zlinked_tmp.txt
+
+# subset transcripts for E. cyanotis Wlinked (388 longest isoform transcripts) --revsort
+#sequences='formatted_Ecyanotis_transcripts_phased_Wlinked_revsort_namefix.fasta'
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|Ecyanotis_Wlinked_|' $genes > Ecyanotis_Wlinked_tmp.txt
+#sbatch seqtk.jobscript $sequences Ecyanotis_Wlinked_tmp.txt
+
+# subset transcripts for Nleucotis Zlinked (388 longest isoform transcripts) --revsort
+#species=Nleucotis
+#haplotype=Zlinked
+#sequences=formatted_${species}_transcripts_phased_${haplotype}_revsort.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_'"$haplotype"'_|' $genes > ${species}_${haplotype}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_${haplotype}_tmp.txt
+
+# subset transcripts for N. leucotis Wlinked (388 longest isoform transcripts) --revsort
+#species=Nleucotis
+#haplotype=Wlinked
+#sequences=formatted_${species}_transcripts_phased_${haplotype}_revsort.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_'"$haplotype"'_|' $genes > ${species}_${haplotype}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_${haplotype}_tmp.txt
+
+# subset transcripts for P. cit Zlinked (388 longest isoform transcripts) --revsort
+#species=Pcitreogularis
+#haplotype=Zlinked
+#sequences=formatted_${species}_transcripts_phased_${haplotype}_revsort.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_'"$haplotype"'_|' $genes > ${species}_${haplotype}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_${haplotype}_tmp.txt
+
+# subset transcripts for P. cit Wlinked (388 longest isoform transcripts) --revsort
+#species=Pcitreogularis
+#haplotype=Wlinked
+#sequences=formatted_${species}_transcripts_phased_${haplotype}_revsort.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_'"$haplotype"'_|' $genes > ${species}_${haplotype}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_${haplotype}_tmp.txt
+
+# subset transcripts for G. picta (388 longest isoform transcripts) --revsort
+#species=Gpicta
+#sequences=formatted_${species}_transcripts_phased_revsort.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_|' $genes > ${species}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_tmp.txt
+
+# subset transcripts for M. albogularis (388 longest isoform transcripts) --revsort
+#species=Malbogularis
+#sequences=formatted_${species}_transcripts_phased_revsort.fasta
+#genes='Ecyan_transcript_id_present_longest_transcript.txt'
+#sed -e 's|^|'"$species"'_|' $genes > ${species}_tmp.txt
+#sbatch seqtk.jobscript $sequences ${species}_tmp.txt

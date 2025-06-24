@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# run single sample phasing script II for G. picta
+#bed='cyan_cds_sorted.bed'
+#modvcf='Gpicta_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+#output='Gpicta_cds_phased.fasta'
+#species='Gpicta'
+
+# run single sample phasing script II for M. albogularis
+#bed='cyan_cds_sorted.bed'
+#modvcf='Malbogularis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+#output='Malbogularis_cds_phased.fasta'
+#species='Malbogularis'
+
+# run single sample phasing script II for G. picta with unsorted bed!!
+#bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+#modvcf='Gpicta_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+#output='Gpicta_cds_phased_revsort.fasta'
+#species='Gpicta'
+
+# run single sample phasing script II for M. albogularis with unsorted bed
+bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+modvcf='Malbogularis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+output='Malbogularis_cds_phased_revsort.fasta'
+species='Malbogularis'
+
+
+sbatch single_sample_cds_phasing_script_II.sh $bed $modvcf $output $species

@@ -1,0 +1,76 @@
+#!/bin/bash
+
+# Add read groups for Cyan_204_F
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#FLOWCELL='A00794'
+#LANE='1.204F'
+#FLOWCELL_BARCODE='HLLJYDSX2'
+#SAMPLE='Cyan_204_F'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0053'
+
+# Add read groups for Cyan_185_M
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#FLOWCELL='A00794'
+#LANE='1.185M'
+#FLOWCELL_BARCODE='HLLJYDSX2'
+#SAMPLE='Cyan_185_M'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0053'
+
+# Add read groups for Nleu_365021_M
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#FLOWCELL='A00794'
+#LANE='1.021M'
+#FLOWCELL_BARCODE='HJFFYDRX2'
+#SAMPLE='Nleu_365021_M'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0254'
+
+# Add read groups for Nleu_365022_F
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#FLOWCELL='A00794'
+#LANE='1.022F'
+#FLOWCELL_BARCODE='HJFFYDRX2'
+#SAMPLE='Nleu_365022_F'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0254'
+
+# Add read groups for Pcit_336117_M
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#FLOWCELL='A00794'
+#LANE='1.117M'
+#FLOWCELL_BARCODE='HJFFYDRX2'
+#SAMPLE='Pcit_336117_M'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0254'
+
+# Add read groups for Pcit_336106_F
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#FLOWCELL='A00794'
+#LANE='1.106F'
+#FLOWCELL_BARCODE='HJFFYDRX2'
+#SAMPLE='Pcit_336106_F'
+#PLATFORM='Illumina'
+#LIBPREP='PREP0254'
+
+# Add read groups for Mlun_M from NCBI
+#DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+#FLOWCELL='ncbi'
+#LANE='1.Mlun_M'
+#FLOWCELL_BARCODE='SRR_ncbi'
+#SAMPLE='Mlun_M'
+#PLATFORM='Illumina'
+#LIBPREP='lib1'
+
+# Add read groups for Malb_M from NCBI
+DEDUP_DIR='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/08-bwa/dedup'
+FLOWCELL='ncbi'
+LANE='1.Malb_M'
+FLOWCELL_BARCODE='SRR_ncbi'
+SAMPLE='Malb_M'
+PLATFORM='Illumina'
+LIBPREP='libMalb'
+
+
+sbatch add_replace_readgroups.jobscript $DEDUP_DIR $FLOWCELL $LANE $FLOWCELL_BARCODE $SAMPLE $PLATFORM $LIBPREP

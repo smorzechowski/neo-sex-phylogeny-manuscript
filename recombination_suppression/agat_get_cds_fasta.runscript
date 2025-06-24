@@ -1,0 +1,42 @@
+#!/bin/bash
+
+# get fasta for Striat
+#gff=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/galGal6_to_Striat_5Z.annotation.gtf
+#genome=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/Striat_Chr5_Z_Ragtag.fasta
+#fold $genome > folded_Striat_Chr5_Z_Ragtag.fasta
+#output=Striat_Chr5_Z_transcripts.fasta
+#genome_fold=folded_Striat_Chr5_Z_Ragtag.fasta
+#sbatch agat_get_cds_fasta.jobscript $gff $genome_fold $output
+
+# get fasta for Chry
+gff=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/galGal6_to_Chry_5Z.annotation.gtf
+genome=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/Chry_Chr5_Z_Ragtag.fasta
+fold $genome > folded_Chry_Chr5_Z_Ragtag.fasta
+output=Chry_Chr5_Z_transcripts.fasta
+genome_fold=folded_Chry_Chr5_Z_Ragtag.fasta
+sbatch agat_get_cds_fasta.jobscript $gff $genome_fold $output
+
+# get fasta for Mmel
+#gff=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/galGal6_to_Mmel_5Z.annotation.gtf
+#genome=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Mmel_HiC_v1.0_Chr5_Z.masked.fasta
+#fold $genome > folded_Mmel_HiC_v1.0_Chr5_Z.masked.fasta
+#output=Mmel_Chr5_Z_transcripts.fasta
+#genome_fold=folded_Mmel_HiC_v1.0_Chr5_Z.masked.fasta
+#sbatch agat_get_cds_fasta.jobscript $gff $genome_fold $output
+
+# get fasta for HeHo
+#gff=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/galGal6_to_HeHo_5Z.annotation.gtf
+#genome=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/headcleaned_HeHo_2.0_Chr5_Z.masked.fasta
+#fold $genome > folded_headcleaned_HeHo_2.0_Chr5_Z.masked.fasta
+#output=HeHo_Chr5_Z_transcripts.fasta
+#genome_fold=folded_headcleaned_HeHo_2.0_Chr5_Z.masked.fasta
+#sbatch agat_get_cds_fasta.jobscript $gff $genome_fold $output
+
+# get fasta for Ecyan genome from NCBI
+#gff=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/galGal6_to_entCya2.annotation_headcleaned.gtf
+#genome=/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/BluefacedHoneyeater/ncbi_dataset/data/GCA_024500445.1/GCA_024500445.1_MCZ_Ecyan_1.0_genomic.fna
+#awk '{print $1}' $genome > headcleaned_entCya2.fasta
+#fold headcleaned_entCya2.fasta > folded_headcleaned_entCya2.fasta
+#output=entCya2_transcripts.fasta
+#genome_fold=folded_headcleaned_entCya2.fasta
+#sbatch agat_get_cds_fasta.jobscript $gff $genome_fold $output

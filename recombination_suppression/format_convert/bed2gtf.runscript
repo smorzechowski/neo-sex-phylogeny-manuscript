@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# convert bed to gtf for entCya2 genome
+#bed='galGal6_to_entCya2.annotation.bed'
+#isoforms='named.query_isoforms.tsv'
+#output='galGal6_to_entCya2.annotation.gtf'
+
+
+# convert bed to gtf for Mmel genome
+bed='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Mmel/galGal6_to_Mmel_5Z.annotation.bed'
+#isoforms='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Mmel/Mmel_5Z_isoforms.tsv'
+isoforms='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Mmel/temp/isoforms.tsv'
+output='galGal6_to_Mmel_5Z.annotation.gtf'
+
+
+bash bed2gtf.sh $bed $isoforms $output

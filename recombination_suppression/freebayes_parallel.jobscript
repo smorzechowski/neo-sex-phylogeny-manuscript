@@ -1,0 +1,27 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 20
+#SBATCH -p edwards,test
+#SBATCH -e log/freebayes_parallel%A.err
+#SBATCH -o log/freebayes_parallel%A.out
+#SBATCH -J freebayes_parallel
+#SBATCH --mem=25g
+#SBATCH --time=00-12:00
+#SBATCH --account=wakeley_lab
+
+BEDFILE=$1
+GENOME=$2
+BAMLIST=$3
+SPECIES=$4
+REGIONS=$5
+
+module load python
+source activate freebayes
+
+export PERL5LIB=/
+
+# call variants assuming a diploid sample and report monomorphic (all sites, even those that aren't variable)
+freebayes-parallel $REGIONS 20 -f ${GENOME} --bam-list ${BAMLIST} --report-monomorphic > ${SPECIES}_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform.vcf
+
+# remove duplicates in the vcf file and save to new file
+sbatch bcftools.jobscript ${SPECIES}_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform

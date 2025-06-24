@@ -1,0 +1,134 @@
+#!/bin/bash
+
+# run freebayes-parallel for E. cyanotis
+# just the neo-Z, mind you! We don't need anything else really.
+# updated with correct read groups (unique RG)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='cyan_bams.txt'
+#SPECIES='Ecyanotis'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_region.file'
+
+# run freebayes-parallel for N. leucotis
+# just the neo-Z, mind you! We don't need anything else really.
+# updated with correct read groups (unique RG)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='nleu_bams.txt'
+#SPECIES='Nleucotis'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_region.file'
+
+# run freebayes-parallel for P. citreogularis
+# just the neo-Z, mind you! We don't need anything else really.
+# updated with correct read groups (unique RG)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='pcit_bams.txt'
+#SPECIES='Pcitreogularis'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_region.file'
+
+# run freebayes-parallel for G. picta
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='gpicta_bam.txt'
+#SPECIES='Gpicta'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_region.file'
+
+# run freebayes-parallel for M. lunatus
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='mlun_bam.txt'
+#SPECIES='Mlunatus'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_region.file'
+
+# run freebayes-parallel for M. albogularis
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='malb_bam.txt'
+#SPECIES='Malbogularis'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_region.file'
+
+#### Non-duplicated exons ####
+
+# run freebayes-parallel for E. cyanotis, using updated regions script of non-duplicated exons (some still overlapping mind you)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='cyan_bams.txt'
+#SPECIES='Ecyanotis'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_exons_region_unique.file'
+
+# run freebayes-parallel for N. leucotis, using updated regions script of non-duplicated exons (some still overlapping mind you)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='nleu_bams.txt'
+#SPECIES='Nleucotis'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_exons_region_unique.file'
+
+
+# run freebayes-parallel for P. citreogularis, using updated regions script of non-duplicated exons (some still overlapping mind you)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='pcit_bams.txt'
+#SPECIES='Pcitreogularis'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_exons_region_unique.file'
+
+# run freebayes-parallel for G. picta, using updated regions script of non-duplicated exons (some still overlapping, mind you)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='gpicta_bam.txt'
+#SPECIES='Gpicta'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_exons_region_unique.file'
+
+# run freebayes-parallel for M. lunatus, using updated regions script of non-duplicated exons (some still overlapping, mind you)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='mlun_bam.txt'
+#SPECIES='Mlunatus'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_exons_region_unique.file'
+
+# run freebayes-parallel for M. albogularis, using updated regions script of non-duplicated exons (some still overlapping, mind you)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='malb_bam.txt'
+#SPECIES='Malbogularis'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_exons_region_unique.file'
+
+#### CDS longest isoforms! #####
+
+# run freebayes-parallel for E. cyanotis using updated regions script of non-duplicated CDS from longest isoforms (somes still overlapping, mind you)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='cyan_bams.txt'
+#SPECIES='Ecyanotis'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_longest_isoform_cds_region_unique.file'
+
+# run freebayes-parallel for N. leucotis using updated regions script of non-duplicated CDS from longest isoforms (somes still overlapping, mind you)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='nleu_bams.txt'
+#SPECIES='Nleucotis'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_longest_isoform_cds_region_unique.file'
+
+# run freebayes-parallel for P. citreogularis, using updated regions script of non-duplicated CDS from longest isoforms (some still overlapping mind you)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='pcit_bams.txt'
+#SPECIES='Pcitreogularis'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_longest_isoform_cds_region_unique.file'
+
+# run freebayes-parallel for G. picta, using updated regions script of non-duplicated CDS from longest isoforms (some still overlapping, mind you)
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+#BAMLIST='gpicta_bam.txt'
+#SPECIES='Gpicta'
+#REGIONS='Ecyan_HiC_v1.0_neoZ_longest_isoform_cds_region_unique.file'
+
+# run freebayes-parallel for M. albogularis, using updated regions script of non-duplicated CDS from longest isoforms (some still overlapping, mind you)
+BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+GENOME='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0_sansW.fa'
+BAMLIST='malb_bam.txt'
+SPECIES='Malbogularis'
+REGIONS='Ecyan_HiC_v1.0_neoZ_longest_isoform_cds_region_unique.file'
+
+
+sbatch freebayes_parallel.jobscript $BEDFILE $GENOME $BAMLIST $SPECIES $REGIONS

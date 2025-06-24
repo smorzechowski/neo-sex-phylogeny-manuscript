@@ -1,0 +1,49 @@
+#!/bin/bash
+
+# Phase E. cyanotis with sorted bed file of cds (YET AGAIN BECAUSE OF THE DELETION DEBACLE!!!!!!)
+#bed='cyan_cds_sorted.bed'
+#modvcf='Ecyanotis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+#Zlinked_output='Ecyanotis_cds_phased_Zlinked.fasta'
+#Wlinked_output='Ecyanotis_cds_phased_Wlinked.fasta'
+#species='Ecyanotis'
+
+
+# Phase N. leucotis with sorted bed file of cds (YET AGAIN BECAUSE OF THE DELETION DEBACLE!!!!!!)
+#bed='cyan_cds_sorted.bed'
+#modvcf='Nleucotis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+#Zlinked_output='Nleucotis_cds_phased_Zlinked.fasta'
+#Wlinked_output='Nleucotis_cds_phased_Wlinked.fasta'
+#species='Nleucotis'
+
+# Phase P. citreogularis with sorted bed file of cds (YET AGAIN BECAUSE OF THE DELETION DEBACLE!!!!!!)
+#bed='cyan_cds_sorted.bed'
+#modvcf='Pcitreogularis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+#Zlinked_output='Pcitreogularis_cds_phased_Zlinked.fasta'
+#Wlinked_output='Pcitreogularis_cds_phased_Wlinked.fasta'
+#species='Pcitreogularis'
+
+# Phase E. cyanotis with UNsorted bed file of cds because I think the order may really matter when adding other sequences
+#bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+#modvcf='Ecyanotis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+#Zlinked_output='Ecyanotis_cds_phased_Zlinked_revsort.fasta'
+#Wlinked_output='Ecyanotis_cds_phased_Wlinked_revsort.fasta'
+#species='Ecyanotis'
+
+# Phase N. leucotis with UNsorted bed file of cds because the order really matters!!!!!!!!
+#bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+#modvcf='Nleucotis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+#Zlinked_output='Nleucotis_cds_phased_Zlinked_revsort.fasta'
+#Wlinked_output='Nleucotis_cds_phased_Wlinked_revsort.fasta'
+#species='Nleucotis'
+
+# Phase P. citreogularis with UNsorted bed file of cds because the order really matters!!!!!!!!
+bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+modvcf='Pcitreogularis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+Zlinked_output='Pcitreogularis_cds_phased_Zlinked_revsort.fasta'
+Wlinked_output='Pcitreogularis_cds_phased_Wlinked_revsort.fasta'
+species='Pcitreogularis'
+
+
+
+sbatch Zlinked_cds_phasing_script_II.sh $bed $modvcf $Zlinked_output $species
+sbatch Wlinked_cds_phasing_script_II.sh $bed $modvcf $Wlinked_output $species

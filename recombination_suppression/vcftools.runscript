@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# analyze singletons in E. cyanotis vcf file
+vcf='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/10-freebayes/Ecyanotis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup.vcf'
+prefix='Ecyanotis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup'
+
+sbatch vcftools.jobscript $vcf $prefix

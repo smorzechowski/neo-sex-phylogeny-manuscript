@@ -1,0 +1,49 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p shared
+#SBATCH -e log/read_groups%A.err
+#SBATCH -o log/read_groups%A.out
+#SBATCH -J read_groups
+#SBATCH --mem=30G
+#SBATCH --time=12:00:00
+
+# Input parameters
+DEDUP_DIR=$1
+FLOWCELL=$2
+LANE=$3
+FLOWCELL_BARCODE=$4
+SAMPLE=$5
+PLATFORM=$6
+LIBPREP=$7
+
+module purge
+module load python
+source activate samtools
+module load jdk/20.0.1-fasrc01
+
+PICARD='/n/home09/smorzechowski/bin/picard/build/libs/picard.jar'
+BWA_PATH='/n/home09/smorzechowski/bin/bwa'
+
+
+# Add read groups with Picard
+java -Xmx30G \
+-jar $PICARD AddOrReplaceReadGroups \
+       I=$DEDUP_DIR/${SAMPLE}_bwa_sorted_dedup.bam \
+       O=$DEDUP_DIR/${SAMPLE}_bwa_sorted_dedup_rg.bam \
+       RGID=$FLOWCELL.$LANE \
+       RGLB=$LIBPREP \
+       RGPL=$PLATFORM \
+       RGPU=$FLOWCELL_BARCODE.$LANE.$SAMPLE \
+       RGSM=$SAMPLE
+
+
+
+# validate the bam files
+java -Xmx30G \
+-jar $PICARD ValidateSamFile \
+      I=$DEDUP_DIR/${SAMPLE}_bwa_sorted_dedup_rg.bam \
+      MODE=SUMMARY
+
+# Index the read group replaced bam files again
+samtools index $DEDUP_DIR/${SAMPLE}_bwa_sorted_dedup_rg.bam

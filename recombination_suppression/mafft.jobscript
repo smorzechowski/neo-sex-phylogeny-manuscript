@@ -1,0 +1,30 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p serial_requeue
+#SBATCH -e log/mafft%A.err
+#SBATCH -o log/mafft%A.out
+#SBATCH -J mafft
+#SBATCH --mem=5g
+#SBATCH --time=00-05:00
+
+
+module load python
+source activate te_annot
+
+
+# Round 1: alignment the phased sequences
+#echo "the fasta file is $1"
+#fileprefix=`echo $1 |sed 's/\.fasta//g'`
+#mafft ${fileprefix}.fasta > ${fileprefix}.maf
+
+# Round 2: add additional sequences in the right order
+echo "the alignment file is $1"
+newseq=$2
+fileprefix=`echo $1 |sed 's/\.maf//g'`
+#basenameprefix=basename $1
+
+file=${1##*/}
+basenameprefix=`echo $file |sed 's/\.maf//g'`
+
+mafft --add $newseq --genafpair --adjustdirectionaccurately --maxiterate 1000 --nuc --reorder ${fileprefix}.maf > ${basenameprefix}_added.maf

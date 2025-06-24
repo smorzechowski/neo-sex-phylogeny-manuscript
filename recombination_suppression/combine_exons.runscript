@@ -1,0 +1,139 @@
+#!/bin/bash
+
+# combine cds for E. cyanotis test Wlinked haplotypes
+# Note: make sure the fasta doesn't have a space at the top of it!
+#bed='cyan_cds_sorted.bed'
+#fasta='Ecyanotis_cds_phased_Wlinked.fasta'
+#haplotype='Wlinked'
+#species='Ecyanotis'
+#output='Ecyanotis_transcripts_phased_Wlinked.fasta'
+
+# combine cds for E. cyanotis test Zlinked haplotypes
+# Note: make sure the fasta doesn't have a space at the top of it!
+#haplotype='Zlinked'
+#species='Ecyanotis'
+#bed='cyan_cds_sorted.bed'
+#fasta=${species}_cds_phased_${haplotype}.fasta
+#output=${species}_transcripts_phased_${haplotype}.fasta
+
+# combine cds for N. leucotis Zlinked haplotypes
+# Note: make sure the fasta doesn't have a space at the top of it!
+#haplotype='Zlinked'
+#species='Nleucotis'
+#bed='cyan_cds_sorted.bed'
+#fasta=${species}_cds_phased_${haplotype}.fasta
+#output=${species}_transcripts_phased_${haplotype}.fasta
+
+# combine cds for N. leucotis Wlinked haplotypes
+# Note: make sure the fasta doesn't have a space at the top of it!
+#haplotype='Wlinked'
+#species='Nleucotis'
+#bed='cyan_cds_sorted.bed'
+#fasta=${species}_cds_phased_${haplotype}.fasta
+#output=${species}_transcripts_phased_${haplotype}.fasta
+
+# combine cds for P cit. Zlinked haplotypes
+# Note: make sure the fasta doesn't have a space at the top of it!
+#haplotype='Zlinked'
+#species='Pcitreogularis'
+#bed='cyan_cds_sorted.bed'
+#fasta=${species}_cds_phased_${haplotype}.fasta
+#output=${species}_transcripts_phased_${haplotype}.fasta
+
+# combine cds for P cit. Wlinked haplotypes
+# Note: make sure the fasta doesn't have a space at the top of it!
+#haplotype='Wlinked'
+#species='Pcitreogularis'
+#bed='cyan_cds_sorted.bed'
+#fasta=${species}_cds_phased_${haplotype}.fasta
+#output=${species}_transcripts_phased_${haplotype}.fasta
+
+#sbatch combine_exons.jobscript $bed $fasta $haplotype $species $output
+
+# combine cds for Gpicta haplotypes
+# Note: make sure the fasta doesn't have a space at the top of it!
+#species='Gpicta'
+#bed='cyan_cds_sorted.bed'
+#fasta=${species}_cds_phased.fasta
+#output=${species}_transcripts_phased.fasta
+#sbatch combine_exons_single_sample.jobscript $bed $fasta $haplotype $species $output
+
+# combine cds for Malbogularis haplotypes
+# Note: make sure the fasta doesn't have a space at the top of it!
+#species='Malbogularis'
+#bed='cyan_cds_sorted.bed'
+#fasta=${species}_cds_phased.fasta
+#output=${species}_transcripts_phased.fasta
+#sbatch combine_exons_single_sample.jobscript $bed $fasta $haplotype $species $output
+
+# combine cds for E. cyanotis test Wlinked haplotypes -- revsort!!!
+# Note: make sure the fasta doesn't have a space at the top of it!!
+#bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+#fasta='Ecyanotis_cds_phased_Wlinked_revsort_namefix.fasta'
+#haplotype='Wlinked'
+#species='Ecyanotis'
+#output='Ecyanotis_transcripts_phased_Wlinked_revsort.fasta'
+
+#sbatch combine_exons.jobscript $bed $fasta $haplotype $species $output
+
+# combine cds for E. cyanotis test Zlinked haplotypes -- revsort!!!
+# Note: make sure the fasta doesn't have a space at the top of it!!
+#bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+#fasta='Ecyanotis_cds_phased_Zlinked_revsort_namefix.fasta'
+#haplotype='Zlinked'
+#species='Ecyanotis'
+#output='Ecyanotis_transcripts_phased_Zlinked_revsort.fasta'
+
+#sbatch combine_exons.jobscript $bed $fasta $haplotype $species $output
+
+# combine cds for N. leucotis Wlinked haplotypes -- revsort!!!
+# Note: make sure the fasta doesn't have a space at the top of it!!
+#bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+#fasta='Nleucotis_cds_phased_Wlinked_revsort.fasta'
+#haplotype='Wlinked'
+#species='Nleucotis'
+#output='Nleucotis_transcripts_phased_Wlinked_revsort.fasta'
+#sbatch combine_exons.jobscript $bed $fasta $haplotype $species $output
+
+# combine cds for N. leucotis Zlinked haplotypes -- revsort!!!
+# Note: make sure the fasta doesn't have a space at the top of it!!
+#bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+#fasta='Nleucotis_cds_phased_Zlinked_revsort.fasta'
+#haplotype='Zlinked'
+#species='Nleucotis'
+#output='Nleucotis_transcripts_phased_Zlinked_revsort.fasta'
+#sbatch combine_exons.jobscript $bed $fasta $haplotype $species $output
+
+# combine cds for P. cit Wlinked haplotypes -- revsort!!!
+# Note: make sure the fasta doesn't have a space at the top of it!!
+#bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+#fasta='Pcitreogularis_cds_phased_Wlinked_revsort.fasta'
+#haplotype='Wlinked'
+#species='Pcitreogularis'
+#output='Pcitreogularis_transcripts_phased_Wlinked_revsort.fasta'
+#sbatch combine_exons.jobscript $bed $fasta $haplotype $species $output
+
+# combine cds for P. cit Zlinked haplotypes -- revsort!!!
+# Note: make sure the fasta doesn't have a space at the top of it!!
+#bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+#fasta='Pcitreogularis_cds_phased_Zlinked_revsort.fasta'
+#haplotype='Zlinked'
+#species='Pcitreogularis'
+#output='Pcitreogularis_transcripts_phased_Zlinked_revsort.fasta'
+#sbatch combine_exons.jobscript $bed $fasta $haplotype $species $output
+
+# combine cds for Gpicta haplotypes -- revsort!!!
+# Note: make sure the fasta doesn't have a space at the top of it!
+species='Gpicta'
+bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+fasta=${species}_cds_phased_revsort_namefix.fasta
+output=${species}_transcripts_phased_revsort.fasta
+sbatch combine_exons_single_sample.jobscript $bed $fasta $haplotype $species $output
+
+# combine cds for Malbogularis haplotypes -- revsort!!!
+# Note: make sure the fasta doesn't have a space at the top of it!
+species='Malbogularis'
+bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+fasta=${species}_cds_phased_revsort_namefix.fasta
+output=${species}_transcripts_phased_revsort.fasta
+sbatch combine_exons_single_sample.jobscript $bed $fasta $haplotype $species $output

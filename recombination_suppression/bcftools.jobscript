@@ -1,0 +1,17 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p test
+#SBATCH -e log/bcftools%A.err
+#SBATCH -o log/bcftools%A.out
+#SBATCH -J bcftools
+#SBATCH --mem=5g
+#SBATCH --time=00-12:00
+
+
+module load python
+mamba activate bcftools
+
+file_prefix=$1
+
+bcftools norm --remove-duplicates ${file_prefix}.vcf -o ${file_prefix}_nondup.vcf

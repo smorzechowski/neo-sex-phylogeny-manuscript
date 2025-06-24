@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p test
+#SBATCH -e log/bed2region%A.err
+#SBATCH -o log/bed2region%A.out
+#SBATCH -J bed2region
+#SBATCH --mem=1g
+#SBATCH --time=00-12:00
+
+export PERL5LIB=/
+
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno.bed'
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_bedops_exons.bed4'
+#BEDFILE='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_bedops_cds.bed4'
+BEDFILE='Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed5'
+
+perl /n/home09/smorzechowski/bin/bed2region < $BEDFILE > Ecyan_HiC_v1.0_neoZ_longest_isoform_cds_region.file
+
+# get unique exons
+cat Ecyan_HiC_v1.0_neoZ_longest_isoform_cds_region.file | awk '{print $1}' | uniq > Ecyan_HiC_v1.0_neoZ_longest_isoform_cds_region_unique.file

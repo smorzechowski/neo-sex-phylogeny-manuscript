@@ -1,0 +1,21 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p test
+#SBATCH -e log/vcftools%A.err
+#SBATCH -o log/vcftools%A.out
+#SBATCH -J vcftools
+#SBATCH --mem=10g
+#SBATCH --time=12:00:00
+
+
+
+module load python
+mamba activate vcftools
+
+vcf=$1
+prefix=$2
+
+vcftools --vcf $vcf --out $prefix --singletons
+
+

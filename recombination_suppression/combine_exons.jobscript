@@ -1,0 +1,27 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p test
+#SBATCH -e log/combine_exons%A.err
+#SBATCH -o log/combine_exons%A.out
+#SBATCH -J combine_exons
+#SBATCH --mem=5g
+#SBATCH --time=12:00:00
+
+
+bed=$1
+fasta=$2
+haplotype=$3
+species=$4
+output=$5
+
+#don't think I want to sort the bed file, just keep unique transcript names
+
+###
+awk '{print $4}' $bed | uniq | while read G; do cat $fasta | paste  - -  | grep -F "${haplotype}_${G}" \
+| tr "\t" "\n" | awk -v G=$G -v hap=$haplotype -v spec=$species 'NR==1 {printf(">%s_%s_%s\n",spec,hap,G);} (NR%2==0) {print}' >> $output; done
+
+###
+
+# Now remove the extra line breaks:
+cat $output | awk '!/^>/ { printf "%s", $0; n = "\n" }  /^>/ { print n $0; n = "" }  END { printf "%s", n } ' > formatted_${output}

@@ -1,0 +1,25 @@
+#! /bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p test
+#SBATCH -e log/bed2gtf_ucsc%A.err
+#SBATCH -o log/bed2gtf_ucsc%A.out
+#SBATCH -J bed2gtf_ucsc
+#SBATCH --mem=5g
+#SBATCH --time=12:00:00
+
+# First, download UCSC scripts
+#wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/genePredToGtf
+#wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedToGenePred
+
+# make them executable
+#chmod +x
+
+bed=$1
+output=$2
+
+BINPATH="/n/home09/smorzechowski/bin"
+
+$BINPATH/bedToGenePred $bed genePredtable
+$BINPATH/genePredToGtf file genePredtable $output
+

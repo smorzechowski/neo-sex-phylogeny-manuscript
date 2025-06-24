@@ -1,0 +1,18 @@
+#! /bin/bash
+
+# get CDS.fasta for Ecyan_HiC_v1.0 toga + RNAseq annotation of neo-W containing longest isoform
+#GENOME=/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0.fa
+#GTF=Ecyan_HiC_v1.0_toga_rnaseq.anno_longest_isoform_neoW.gff3
+#PREFIX=Ecyan_HiC_v1.0_toga_rnaseq.anno_longest_isoform_neoW
+
+# get CDS.fasta for Ecyan_HiC_v1.0 toga + RNAseq annotation of neo-Z containing longest isoform
+#GENOME=/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/Ecyan_HiC_v1.0.fa
+#GTF=Ecyan_HiC_v1.0_toga_rnaseq.anno_longest_isoform_neoZ.gff3
+#PREFIX=Ecyan_HiC_v1.0_toga_rnaseq.anno_longest_isoform_neoZ
+
+# get CDS.fasta for tgut bTaeGut1.4 genome + annotation
+GENOME=/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ZebraFinchAssembly/GCF_003957565.2_bTaeGut1.4.pri/GCF_003957565.2_bTaeGut1.4.pri_genomic.fna
+GTF=/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ZebraFinchAssembly/GCF_003957565.2_bTaeGut1.4.pri/GCF_003957565.2_bTaeGut1.4.pri_genomic.gff
+PREFIX=TaeGut1.4.pri_genomic
+
+sbatch gff2fasta.jobscript $GENOME $GTF $PREFIX

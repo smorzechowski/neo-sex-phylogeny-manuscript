@@ -1,0 +1,10 @@
+#! /bin/bash
+
+# convert zebra finch gff to bed
+#GTF='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ZebraFinchAssembly/GCF_003957565.2_bTaeGut1.4.pri/GCF_003957565.2_bTaeGut1.4.pri_genomic.gff'
+#PREFIX='GCF_003957565.2_bTaeGut1.4.pri_genomic'
+
+# convert chickan ggal7 gff to bed
+GTF='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/GCF_016699485.2_bGalGal1.mat.broiler.GRCg7b/GCF_016699485.2_bGalGal1.mat.broiler.GRCg7b_genomic.gff'
+PREFIX='GRCg7b_genomic'
+sbatch gff2bed.jobscript $GTF $PREFIX

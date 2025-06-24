@@ -1,0 +1,30 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p test
+#SBATCH -e log/format_fasta%A.err
+#SBATCH -o log/format_fasta%A.out
+#SBATCH -J format_fasta
+#SBATCH --mem=2g
+#SBATCH --time=12:00:00
+
+#fasta=$1
+#species=$2
+#transcripts=$3
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments/results
+
+# First, split each subset fasta file into separate files per sequence
+# Do this in a separate directory I guess
+
+#cat $fasta | awk '{
+#        if (substr($0, 1, 1)==">") {filename=(substr($0,2) ".fasta")}
+#        print $0 > filename
+#}'
+
+# Next, combine (concatenate) all files of the same transcript together
+
+# strip the transcript names
+#sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' $transcripts > transcripts_stripped.txt
+
+#for transcript in $(< transcripts_stripped.txt);
+#do cat ${species}_*${transcript}*.fasta > ${transcript}_alignment.fasta; done

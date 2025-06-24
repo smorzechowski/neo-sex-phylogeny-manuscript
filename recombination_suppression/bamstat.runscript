@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# run bam stat on E. cyanotis female 204
+#bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed'
+#bam='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/10-freebayes/Cyan_204_F_bwa_sorted_dedup_rg.bam'
+#out='Ecyan_204_F_bamstat_output'
+
+# run bam stat on E. cyanotis male 185
+#bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed'
+#bam='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/10-freebayes/Cyan_185_M_bwa_sorted_dedup_rg.bam'
+#out='Ecyan_185_M_bamstat_output'
+
+# run bam stat on N. leucotis female
+bed='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/AnnotationData/Ecyan_HiC_v1.0_neoZ_toga_rnaseq.anno_longest_isoform_bedops_cds_final.bed'
+bam='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/10-freebayes/Cyan_185_M_bwa_sorted_dedup_rg.bam'
+out='Ecyan_185_M_bamstat_output'
+
+
+sbatch bamstat.jobscript $bed $bam $out

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# strip the transcript names
+#transcripts=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments/Ecyan_transcript_id_present_longest_transcript.txt
+transcripts=transcripts_test.txt
+sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' $transcripts > transcripts_stripped.txt
+
+
+for transcript in $(< transcripts_stripped.txt); do
+alignment=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/19-mafft/${transcript}_alignment_revsort_added.maf
+transc=${transcript}
+sbatch rename_tips.jobscript $transc $alignment; done

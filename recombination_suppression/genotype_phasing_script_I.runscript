@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# Phase the Ecyanotis vcf YET AGAIN GOLLY GEEEEE!!!!!!!
+#vcf='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/10-freebayes/Ecyanotis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup.vcf'
+#output='Ecyanotis_neoZ_Ecyan_HiC_v1.0_sansW_cds_nondup_phased.vcf'
+
+# try the original vcf E cyanotis exon nondup file
+#vcf='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/10-freebayes/Ecyanotis_neoZ_Ecyan_HiC_v1.0_sansW_exons_nondup.vcf'
+#output='Ecyanotis_neoZ_Ecyan_HiC_v1.0_sansW_exons_nondup_phased.vcf'
+
+# Phase the Nleucotis vcf YET AGAIN AS WELL!!!!
+#vcf='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/10-freebayes/Nleucotis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup.vcf'
+#output='Nleucotis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+
+# Phase the Pcitreogularis vcf YET AGAIN AS WELL!!!!
+vcf='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/10-freebayes/Pcitreogularis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup.vcf'
+output='Pcitreogularis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform_nondup_phased.vcf'
+
+sbatch genotype_phasing_script_I.sh $vcf $output

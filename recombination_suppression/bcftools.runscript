@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# remove duplicates for P. cit vcf file
+#file_prefix='Pcitreogularis_neoZ_Ecyan_HiC_v1.0_sansW'
+
+# remove duplicates for E. cyan vcf file
+#file_prefix='Ecyanotis_neoZ_Ecyan_HiC_v1.0_sansW_exons'
+
+# remove duplicates for N. leu vcf file
+#file_prefix='Nleucotis_neoZ_Ecyan_HiC_v1.0_sansW_exons'
+
+# remove duplicates for P. cit vcf file
+# file_prefix='Pcitreogularis_neoZ_Ecyan_HiC_v1.0_sansW_exons'
+
+# remove duplicates for G. picta vcf file
+#file_prefix='Gpicta_neoZ_Ecyan_HiC_v1.0_sansW_exons'
+
+# remove duplicates for M. lunatus vcf file
+#file_prefix='Mlunatus_neoZ_Ecyan_HiC_v1.0_sansW_exons'
+
+# remove duplicates for M. albogularis vcf file
+#file_prefix='Malbogularis_neoZ_Ecyan_HiC_v1.0_sansW_exons'
+
+# remove duplicates for E. cyan vcf file updated
+file_prefix='Ecyanotis_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform'
+
+
+sbatch bcftools.jobscript $file_prefix

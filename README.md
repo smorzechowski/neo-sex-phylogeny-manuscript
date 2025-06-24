@@ -14,12 +14,21 @@ The software and programs used in this manuscript include:
 [mafft](https://mafft.cbrc.jp/alignment/server/index.html)\
 [IQTree2](https://github.com/iqtree/iqtree2)\
 [RepeatModeler](https://github.com/Dfam-consortium/RepeatModeler/tree/master)\
-[RepeatMasker](https://github.com/Dfam-consortium/RepeatMasker)\
+[RepeatMasker](https://github.com/Dfam-consortium/RepeatMasker)
 
 and custom phasing scripts adapted from Sigeman, H., Ponnikas, S., Videvall, E., Zhang, H., Chauhan, P., Naurin, S., & Hansson, B. (2018). Insights into Avian Incomplete Dosage Compensation: Sex-Biased Gene Expression Coevolves with Sex Chromosome Degeneration in the Common Whitethroat. Genes, 9(8). https://doi.org/10.3390/genes9080373.
 
 
 # Contents
+[Assembling genomes and scaffolding with HiC](#example-heading)
+
+
+
+## Assmbling genomes and scaffolding with HiC
+## Phasing gametologs
+## Creating alignments of loci across the neo-sex chromosomes
+## Expected likelihood weights
+## Likelihood ratio test
 
 
 

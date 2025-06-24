@@ -165,9 +165,13 @@ hicaln="/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-06-1
 
 ## TOGA genome annotation
 
-To annotate genomes I used TOGA, which uses whole-genome alignment with a high quality genome to find and annotate orthologous genes, infer exon-intron structure, gene loss, gene duplication, and identify pseudogenes.
+To annotate genomes I used TOGA, which leverages whole-genome alignment with a high quality genome to find and annotate orthologous genes, infer exon-intron structure, gene loss, gene duplication, and identify pseudogenes.
 
+First I created a whole-genome alignment with a [helper script](https://github.com/hillerlab/make_lastz_chains) that runs lastz with the program NextFlow. This was resource intensive and required a lot of optimization to run on a slurm-based HPC.
 
+```
+```
+Then I ran
 
 
 ## Phasing gametologs

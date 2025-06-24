@@ -1,4 +1,6 @@
-# Investigate mean sex differences on added-Z/W 
+# Visualize mean sex differences in heterozygosity and read depth on added-Z/W
+# Output from FindZX pipeline
+# For creating Figure 4 of the finalized manuscript
 # Sophia C. M. Orzechowski 
 # February 2023
 # Updated March 2024
@@ -7,8 +9,6 @@
 library(ggplot2)
 library(scales)
 show_col(hue_pal()(10))
-
-
 ####1####
 # Set working directory
 setwd("~/PhD research/Neo sex chromosome/findZX/2022-12-21/results/Entomyzon/output/no_synteny/tables")
@@ -157,7 +157,7 @@ cbbPalette <- c("#000000", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2"
 custom_palette<-c("#A3A500","#E76BF3","#00BF7D","#39B600","#FF62BC","#D89000","#00BFC4","#9590FF","#00B0F6","#F8766D")
 data <- data[data$Chromosomes=="ONT_addedZ_V2_contig_4_segment0" | data$Chromosomes=="NC_044217.2",]
 
-ggplot(data,aes(Mean.genome.coverage.difference..unfiltered.,Mean.heterozygosity.difference,
+p <- ggplot(data,aes(Mean.genome.coverage.difference..unfiltered.,Mean.heterozygosity.difference,
                  ymin=Mean.heterozygosity.difference-SD.heterozygosity.difference,
                  ymax=Mean.heterozygosity.difference+SD.heterozygosity.difference,
                  xmin=Mean.genome.coverage.difference..unfiltered.-SD.genome.coverage.difference..unfiltered.,
@@ -168,143 +168,18 @@ ggplot(data,aes(Mean.genome.coverage.difference..unfiltered.,Mean.heterozygosity
   geom_errorbarh(size=1)+
   geom_vline(aes(xintercept=0),linetype=2,color='black')+
   geom_hline(aes(yintercept=0),linetype=2,color='black')+
-  xlab("F-M Mean Genome Coverage") +
-  ylab("F-M Mean Heterozygosity")+
+  xlab("Δ (Female - Male) Genome Coverage") +
+  ylab("Δ (Female - Male) Heterozygosity")+
+  ggtitle("A.")+
   theme_bw()+
-  theme(axis.title = element_text(size=18),
+  theme(axis.title = element_text(size=17),
         axis.text = element_text(size=16),
-        legend.text = element_text(size=10),
-        legend.title = element_blank())+
+        legend.text = element_text(size=12),
+        legend.title = element_blank(),
+        title = element_text(size=16))+
   xlim(-0.5,.5)+
   scale_fill_manual(values=custom_palette)+
   scale_color_manual(values=custom_palette)
 
-
-ggplot(all_species,aes(start,diff,fill=Species,color=Species))+
-  geom_point()+
-  geom_smooth()+
-  scale_x_continuous(labels=comma)+
-  #geom_vline(aes(xintercept=44058037),linetype='dotted',color='black')+
-  geom_vline(aes(xintercept=17400000),linetype='dotted',color='black')+
- # geom_text(label="44,058,037 bp",x=50058037,y=1.5)+
- # annotate(geom="text", x=50058037, y=1.5, label="44,058,037 bp",color="black")+
-  xlab("Zebra Finch Chr 5 Coordinates") +
-  ylab("F-M Heterozygosity")+
-  theme_classic()+
-  theme(axis.title = element_text(size=18),
-        axis.text = element_text(size=16),
-        legend.text = element_text(size=16),
-        legend.title = element_text(size=18))+
-  scale_fill_manual(values=cbPalette)+
-  scale_color_manual(values=cbbPalette)
-  
-
-ggplot(all_species[all_species$start >44000000,],aes(start,diff,fill=Species,color=Species))+
-  geom_point()+
-  scale_x_continuous(labels=comma)
-
-
-ggplot(all_species[all_species$start <20000000 & all_species$start >16000000,],aes(start,diff,fill=Species,color=Species))+
-  geom_point(size=6,position='jitter')+
-  scale_x_continuous(labels=comma)+
-  geom_vline(aes(xintercept=17600000),linetype='dotted',color='black')+
-  facet_grid(.~ Species)
-  #geom_smooth()
-
-###########Try smaller sliding window############
-
-####1####
-
-# Set working directory
-setwd("~/PhD research/Neo sex chromosome/Nesoptilotis/Nesoptilotis/output/synteny/T_guttatus/tables")
-
-
-
-# Load data
-data <- read.table('diffHeterozygosity.25000bp.out',header=TRUE,sep="\t",stringsAsFactors = FALSE)
-str(data)
-nleu_subset <- data[data$chr=="NC_044217.2",]
-nleu_subset$species <- "Nesoptilotis"
-#write.table(data_subset,file="Neosptilotis_NC_044217.2_diffHet.100kb.out")
-
-# Load libraries
-library(ggplot2)
-library(scales)
-
-ggplot(nleu_subset,aes(start,diff))+
-  geom_point()+
-  scale_x_continuous(labels=comma)
-
-####2####
-
-# Set working directory
-setwd("~/PhD research/Neo sex chromosome/Philemon/Philemon/output/synteny/T_guttatus/tables")
-
-
-# Load data
-data <- read.table('diffHeterozygosity.25000bp.out',header=TRUE,sep="\t",stringsAsFactors = FALSE)
-str(data)
-phil_subset <- data[data$chr=="NC_044217.2",]
-phil_subset$species <- "Philemon"
-#write.table(phil_subset,file="Philemon_NC_044217.2_diffHet.100kb.out")
-
-ggplot(phil_subset,aes(start,diff))+
-  geom_point()+
-  scale_x_continuous(labels=comma)
-
-####3####
-
-
-# Set working directory
-setwd("~/PhD research/Neo sex chromosome/cyan_synteny/output/synteny/T_guttatus/tables")
-
-
-# Load data
-data <- read.table('diffHeterozygosity.25000bp.out',header=TRUE,sep="\t",stringsAsFactors = FALSE)
-cyan_subset <- data[data$chr=="NC_044217.2",]
-cyan_subset$species <- "Cyanotis"
-#write.table(cyan_subset,file="Cyanotis_NC_044217.2_diffHet.100kb.out")
-
-ggplot(cyan_subset,aes(start,diff))+
-  geom_point()+
-  scale_x_continuous(labels=comma)
-
-
-# A graph with all three species
-all_species <- rbind(cyan_subset,phil_subset,nleu_subset)
-
-ggplot(all_species,aes(start,diff,fill=species,color=species))+
-  geom_point()+
-  scale_x_continuous(labels=comma)
-
-
-ggplot(all_species[all_species$start >40000000,],aes(start,diff,fill=species,color=species))+
-  geom_point()+
-  scale_x_continuous(labels=comma,breaks=100000)
-
-
-# Heterozygosity on the added-Z for the Blue-faced Honeyeater! 
-setwd("~/PhD research/Neo sex chromosome/bfhe_test_neoZ_take1/output/no_synteny/tables")
-
-# Load data
-data <- read.table('diffHeterozygosity.100000bp.out',header=TRUE,sep="\t",stringsAsFactors = FALSE)
-cyan_subset <- data[data$chr=="contig_4_segment0",]
-
-#write.table(cyan_subset,file="Cyanotis_NC_044217.2_diffHet.100kb.out")
-
-ggplot(cyan_subset,aes(start,diff))+
-  geom_point()+
-  scale_x_continuous(labels=comma)+
-  geom_vline(aes(xintercept=17400000),linetype='dotted',color='red')+
-  # geom_text(label="17,000,000 bp",x=50058037,y=1.5)+
-  annotate(geom="text", x=22000000, y=0.3, label="17,400,000 bp",
-           color="red")+
-  xlab("Blue-faced Honeyeater Contig 4 (added-Z) Coordinates") +
-  ylab("F-M ??? Heterozygosity")+
-  theme_classic()+
-  theme(axis.title = element_text(size=18),
-        axis.text = element_text(size=18))
-#ylim(-0.5,1.5)
-
-
+p
 

@@ -1,8 +1,7 @@
 # Plot species tree and mtDNA with triangles showing proportional size of clades
+# For creating Figure 5 in finalized manuscript
 # Sophie MacRae Orzechowski
 # March 2024
-#
-
 
 
 library(phytools)
@@ -11,7 +10,7 @@ library(geiger)
 setwd("~/PhD research/Neo sex chromosome/UCE data/genera59_mafft_min75percent_gblocks0.65_clean_nexus_raxml")
 
 
-### ** Examples
+### Example ####
 
 ## first create our backbone tree with
 ## random subtree diversities

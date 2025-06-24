@@ -132,7 +132,24 @@ echo "### Step 0: Check output directories exist & create them as needed"
 
 #echo "### Step 3.B: Add read group"
 #java -Xmx4G -Djava.io.tmpdir=temp/ -jar $PICARD AddOrReplaceReadGroups INPUT=$TMP_DIR/$SRA.bam OUTPUT=$PAIR_DIR/$SRA.bam ID=$SRA LB=$SRA SM=$LABEL PL=ILLUMINA PU=none
+
+echo "### Step 4: Mark duplicates"
+java -Xmx30G -XX:-UseGCOverheadLimit -Djava.io.tmpdir=temp/ \
+-jar $PICARD MarkDuplicates INPUT=$PAIR_DIR/$SRA.bam OUTPUT=$REP_DIR/$REP_LABEL.bam \
+METRICS_FILE=$REP_DIR/metrics.$REP_LABEL.txt TMP_DIR=$TMP_DIR \
+ASSUME_SORTED=TRUE VALIDATION_STRINGENCY=LENIENT REMOVE_DUPLICATES=TRUE
+
+$SAMTOOLS index $REP_DIR/$REP_LABEL.bam
+
+perl $STATS $REP_DIR/$REP_LABEL.bam > $REP_DIR/$REP_LABEL.bam.stats
+
+echo "Finished Mapping Pipeline through Duplicate Removal"
 ```
+Next, I ran YAHS to scaffold the contigs using the HiC-aligned reads.
+```
+
+```
+
 
 
 ## TOGA genome annotation

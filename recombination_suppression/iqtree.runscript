@@ -1,0 +1,60 @@
+#!/bin/bash
+
+
+#alignment_list='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/19-mafft/gblocks_keep_alignments_500bp_12seq_gbc.txt'
+#cp $alignment_list .
+
+# test!
+#alignment_list='test_alignment_list.txt'
+#trees='reference_topologies.txt'
+#for align in $(< gblocks_keep_alignments_500bp_12seq_gbc.txt); do
+#alignment=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/19-mafft/${align}
+#cp $alignment .
+#sbatch iqtree.jobscript $align $trees; done
+
+
+# Run just the mtDNA reference topologies
+#trees='mtDNA_reference_topologies_set1.txt'
+#for align in $(< gblocks_keep_alignments_500bp_12seq_gbc.txt); do
+#alignment=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/19-mafft/${align}
+#cp $alignment .
+#output=mtDNA_${align}
+#sbatch iqtree.jobscript $align $trees $output; done
+
+# Run just the Andersen reference topologies
+#trees='Andersen_reference_topologies_set1.txt'
+#for align in $(< gblocks_keep_alignments_500bp_12seq_gbc.txt); do
+#alignment=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/19-mafft/${align}
+#cp $alignment .
+#output=Andersen_${align}
+#sbatch iqtree.jobscript $align $trees $output; done
+
+# Run just the Old Z alignments with two reference topologies
+#trees='OldZ_reference_topologies.txt'
+#for align in $(< gblocks_keep_alignments_500bp_12seq_gbc.txt); do
+#alignment=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/19-mafft/OldZ/${align}
+#cp $alignment .
+#output=OldZ_${align}
+#sbatch iqtree.jobscript $align $trees $output; done
+
+# Run the ancestral PAR with all ref topologies
+alignment_list=ancestralPAR_alignment_list.txt
+trees='reference_topologies_sans_Mmel.txt'
+for align in $(< ancestralPAR_alignment_list.txt); do
+alignment=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/19-mafft/${align}
+cp $alignment .
+output=ancestralPAR_${align}
+sbatch iqtree.jobscript $align $trees $output; done
+
+# Create a tree for ND2 locus -- all my data plus ncbi
+#alignment='WEHO_all_round145_manual_trim_2_all_ncbi_manual_trim_1.fasta'
+#sbatch iqtree.jobscript $alignment
+
+# Create a tree for all NCBI data for N. leucotis
+#alignment='all_ND2_sequences_NCBI.fasta'
+#sbatch iqtree.jobscript $alignment
+
+# Create a tree for ND2 locus -- all NCBI data plus whole genome extracted sequence
+# alignment='all_ND2_sequences_NCBI.fasta'
+#alignment='all_ND2_sequences_NCBI_KY994594.fasta'
+#sbatch iqtree.jobscript $alignment

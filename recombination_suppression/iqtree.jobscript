@@ -1,0 +1,25 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p serial_requeue
+#SBATCH -e log/iqtree%A.err
+#SBATCH -o log/iqtree%A.out
+#SBATCH -J iqtree
+#SBATCH --mem=5g
+#SBATCH --time=0-02:00
+
+
+module load python
+source activate iqtree
+
+alignment=$1
+trees=$2
+output=$3
+
+# Run ELW analysis
+iqtree -s $alignment --trees $trees --test 100000 --test-au --prefix $output
+
+#-redo
+
+# Make tree only
+#iqtree -s $alignment

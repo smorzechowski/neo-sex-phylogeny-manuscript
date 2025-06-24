@@ -1,0 +1,44 @@
+#! /bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p edwards
+#SBATCH -e log/chains%A.err
+#SBATCH -o log/chains%A.out
+#SBATCH -J chains
+#SBATCH --mem=20g
+#SBATCH --time=30-00:00
+#SBATCH --account=edwards_lab
+
+module load python
+source activate lastz_chain_dependencies
+module purge
+#module load jdk/20.0.1-fasrc01
+
+export PERL5LIB=/
+
+
+export PATH=/n/home09/smorzechowski/bin/nextflow-19.12.0-edge:$PATH
+export PATH=/n/home09/smorzechowski/bin/make_lastz_chains/kent_binaries:$PATH
+export PATH=/n/home09/smorzechowski/bin/make_lastz_chains/GenomeAlignmentTools/src:$PATH
+
+which python
+which java
+
+# Genomes must be soft-masked
+
+target_name=$1
+query_name=$2
+target_genome=$3
+query_genome=$4
+project_directory=$5
+
+python /n/home09/smorzechowski/bin/make_lastz_chains/make_chains.py ${target_name} ${query_name} ${target_genome} ${query_genome} \
+--executor slurm --executor_partition edwards --executor_queuesize 200 --project_dir ${project_directory} --chaining_memory 100000 \
+--cluster_parameters '-A edwards_lab --time=15-00:00' --seq1_chunk 30000000 --seq2_chunk 7000000
+
+# --force_def
+#--continue_arg 'lastz' If you need to restart at this point
+#--continue_arg 'chainRun' if you need to restart at this point
+# 'chainRun'
+# 'cat' needed more memory for full genome, increasing from 4 GB to 40 GB, finally worked...
+# 'chainRun' to fix tmp directory location

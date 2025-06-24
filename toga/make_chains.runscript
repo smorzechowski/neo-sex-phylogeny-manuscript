@@ -1,0 +1,58 @@
+#!/bin/bash
+
+#target_name=$1
+#query_name=$2
+#target_genome=$3
+#query_genome=$4
+#project_directory=$5
+
+# run make chains for Ecyan -- using Katya's output instead
+#sbatch make_chains.jobscript Gga7b Ecyan \
+#$MEL/ncbi_assemblies/ChickenAssembly/headcleaned_GCF_016699485.2_bGalGal1.mat.broiler.GRCg7b_genomic.fna.masked \
+#$MEL/ReferenceAssemblies/Ecyan_HiC_v1.0_rm10kb.fasta.masked \
+#Ecyan_Gga7b_chain
+
+
+# run make chains for Chr 5 and Z of Mmel -- completed!
+#sbatch make_chains.jobscript Gga7b Mmel \
+#$MEL/ncbi_assemblies/ChickenAssembly/headcleaned_GCF_016699485.2_bGalGal1.mat.broiler.GRCg7b_genomic_no_W_MT.fna.masked \
+#Mmel_HiC_v1.0_Chr5_Z.masked.fasta \
+#Mmel5_Z_Gga7b_chain
+
+# run make chains for Chr 5 and Z of HeHo
+#sbatch make_chains.jobscript Gga7b HeHo \
+#$MEL/ncbi_assemblies/ChickenAssembly/headcleaned_GCF_016699485.2_bGalGal1.mat.broiler.GRCg7b_genomic_no_W_MT.fna.masked \
+#headcleaned_HeHo_2.0_Chr5_Z.masked.fasta \
+#HeHo5_Z_Gga7b_chain
+
+# run make chains for Chr 5 and Z of Mmel using Gga6a!
+#sbatch make_chains.jobscript Gga6a Mmel \
+#$MEL/ncbi_assemblies/ChickenAssembly/headcleaned_renamed_GCA_000002315.5_GRCg6a_genomic_no_W.fna.masked \
+#Mmel_HiC_v1.0_Chr5_Z.masked.fasta \
+#Mmel5_Z_Gga6a_chain
+
+
+# run make chains for Chr 5 and Z of HeHo using Gga6a!
+#sbatch make_chains.jobscript Gga6a HeHo \
+#$MEL/ncbi_assemblies/ChickenAssembly/headcleaned_renamed_GCA_000002315.5_GRCg6a_genomic_no_W.fna.masked \
+#headcleaned_HeHo_2.0_Chr5_Z.masked.fasta \
+#HeHo5_Z_Gga6a_chain
+
+# run make chains for Chr 5 and Z of Chry (masked) using Gga6a!
+#sbatch make_chains.jobscript Gga6a Chry \
+#$MEL/ncbi_assemblies/ChickenAssembly/headcleaned_renamed_GCA_000002315.5_GRCg6a_genomic_no_W.fna.masked \
+#/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/Chry_Chr5_Z_Ragtag.fasta \
+#Chry5_Z_Gga6a_chain
+
+# run make chains for Chr 5 and Z of Striat (masked) using Gga6a!
+#sbatch make_chains.jobscript Gga6a Striat \
+#$MEL/ncbi_assemblies/ChickenAssembly/headcleaned_renamed_GCA_000002315.5_GRCg6a_genomic_no_W.fna.masked \
+#/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/Striat_Chr5_Z_Ragtag.fasta \
+#Striat5_Z_Gga6a_chain
+
+# run make chains for E. cyanotis full genome (masked) using Gga6a (masked with both 6a and 7b RM libs) including W!
+sbatch make_chains.jobscript Gga6a Ecyan \
+$MEL/ncbi_assemblies/ChickenAssembly/headcleaned_renamed_GCA_000002315.5_GRCg6a_genomic.fna_6a7blibs.masked \
+$MEL/ReferenceAssemblies/Ecyan_HiC_v1.0_rm10kb.fasta.masked \
+Ecyan_Gga6a_chain
+

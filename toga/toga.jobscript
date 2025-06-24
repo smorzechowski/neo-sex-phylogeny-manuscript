@@ -1,0 +1,30 @@
+#! /bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p edwards
+#SBATCH -e log/toga%A.err
+#SBATCH -o log/toga%A.out
+#SBATCH -J toga_test
+#SBATCH --mem=20g
+#SBATCH --time=14-00:00
+
+module load python
+
+
+which java
+export PATH=/n/home09/smorzechowski/bin/nextflow-19.12.0-edge:$PATH
+export PATH=/n/home09/smorzechowski/bin/make_lastz_chains/kent_binaries:$PATH
+
+TOGAPATH='/n/home09/smorzechowski/bin/TOGA'
+CHAINFILE=$1
+ANNOBED=$2
+REFPATH=$3
+QUERYPATH=$4
+ISOFORMS=$5
+NFCONFIG=$6
+PROJECT=$7
+#U12=$7
+
+python $TOGAPATH/toga.py $CHAINFILE $ANNOBED ${REFPATH} ${QUERYPATH} --kt --pn $PROJECT -i $ISOFORMS --nc ${NFCONFIG} --cb 1,5,15,50,100 --cjn 500 --ms
+
+# --u12 $U12 optional

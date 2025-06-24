@@ -1,0 +1,68 @@
+#! /bin/bash
+
+# Run the TOGA test!
+#TOGAPATH='/n/home09/smorzechowski/bin/TOGA'
+#CHAINFILE='/n/home09/smorzechowski/bin/TOGA/test_input/hg38.mm10.chr11.chain'
+#ANNOBED='/n/home09/smorzechowski/bin/TOGA/test_input/hg38.genCode27.chr11.bed'
+#REFPATH='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/hg38.2bit'
+#QUERYPATH='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/mm10.2bit'
+#ISOFORMS='/n/home09/smorzechowski/bin/TOGA/supply/hg38.wgEncodeGencodeCompV34.isoforms.txt'
+#NFCONFIG='/n/home09/smorzechowski/bin/TOGA/nextflow_config_files'
+#U12='/n/home09/smorzechowski/bin/TOGA/supply/hg38.U12sites.tsv'
+
+# Run TOGA on Mmel Chr5 and Z!
+#TOGAPATH='/n/home09/smorzechowski/bin/TOGA'
+#CHAINFILE='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Mmel5_Z_Gga6a_chain/Gga6a.Mmel.allfilled.chain.gz'
+#ANNOBED='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.transcripts.bed'
+#REFPATH='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.2bit'
+#QUERYPATH='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Mmel5_Z_Gga6a_chain/Mmel.2bit'
+#ISOFORMS='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.isoforms.tsv'
+#NFCONFIG='/n/home09/smorzechowski/bin/TOGA/nextflow_config_files'
+#PROJECT='Mmel'
+
+# Run TOGA on HeHo Chr5 and Z!
+#TOGAPATH='/n/home09/smorzechowski/bin/TOGA'
+#CHAINFILE='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/HeHo5_Z_Gga6a_chain/Gga6a.HeHo.allfilled.chain.gz'
+#ANNOBED='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.transcripts.bed'
+#REFPATH='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.2bit'
+#QUERYPATH='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/HeHo_toga.2bit'
+#ISOFORMS='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.isoforms.tsv'
+#NFCONFIG='/n/home09/smorzechowski/bin/TOGA/nextflow_config_files'
+#PROJECT='HeHo'
+
+# Run TOGA on Striat Chr5 and Z!
+#TOGAPATH='/n/home09/smorzechowski/bin/TOGA'
+#CHAINFILE='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Striat5_Z_Gga6a_chain/Gga6a.Striat.allfilled.chain.gz'
+#ANNOBED='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.transcripts.bed'
+#REFPATH='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.2bit'
+#QUERYPATH='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Striat_toga.2bit'
+#ISOFORMS='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.isoforms.tsv'
+#NFCONFIG='/n/home09/smorzechowski/bin/TOGA/nextflow_config_files'
+#PROJECT='Striat'
+
+
+# Run TOGA on Chry Chr5 and Z!
+#TOGAPATH='/n/home09/smorzechowski/bin/TOGA'
+#CHAINFILE='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Chry5_Z_Gga6a_chain/Gga6a.Chry.allfilled.chain.gz'
+#ANNOBED='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.transcripts.bed'
+#REFPATH='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.2bit'
+#QUERYPATH='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Chry_toga.2bit'
+#ISOFORMS='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.isoforms.tsv'
+#NFCONFIG='/n/home09/smorzechowski/bin/TOGA/nextflow_config_files'
+#PROJECT='Chry'
+
+# Run TOGA on E. cyanotis full genome!
+TOGAPATH='/n/home09/smorzechowski/bin/TOGA'
+CHAINFILE='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Ecyan_Gga6a_chain/Gga6a.Ecyan.allfilled.chain.gz'
+ANNOBED='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.transcripts.bed'
+REFPATH='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.2bit'
+QUERYPATH='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/06-toga/Ecyan_HiC_toga.2bit'
+ISOFORMS='/n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ncbi_assemblies/ChickenAssembly/galGal6_toga.isoforms.tsv'
+NFCONFIG='/n/home09/smorzechowski/bin/TOGA/nextflow_config_files'
+PROJECT='Ecyan_HiC'
+
+
+
+sbatch toga.jobscript $CHAINFILE $ANNOBED $REFPATH $QUERYPATH $ISOFORMS $NFCONFIG $PROJECT
+
+#$U12 optional

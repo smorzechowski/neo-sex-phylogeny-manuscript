@@ -7,6 +7,7 @@ The software and programs used in this manuscript include:
 - [FindZX](https://github.com/hsigeman/findZX)
 - [TOGA](https://github.com/hillerlab/TOGA)
   - lastz
+  - NextFlow
 - [flye](https://github.com/mikolmogorov/Flye)
 - [NextPolish](https://github.com/Nextomics/NextPolish)
 - [YAHS](https://github.com/c-zhou/yahs)

@@ -7,7 +7,7 @@ The software and programs used in this manuscript include:
 - [FindZX](https://github.com/hsigeman/findZX)
 - [TOGA](https://github.com/hillerlab/TOGA)
 - [flye](https://github.com/mikolmogorov/Flye)
-- -[NextPolish](https://github.com/Nextomics/NextPolish)
+- [NextPolish](https://github.com/Nextomics/NextPolish)
 - [YAHS](https://github.com/c-zhou/yahs)
 - [freebayes](https://github.com/freebayes/freebayes)
 - [gblocks](https://www.biologiaevolutiva.org/jcastresana/Gblocks.html)
@@ -45,9 +45,36 @@ flye --nano-raw $cyan_reads_sans_addedZ_NRC_ZPAR -g 1g \
 
 To polish genomes, I used the program NextPolish: 
 ```
+cat run.cfg
+
+[General]
+job_type = local
+job_prefix = nextPolish
+task = best
+rewrite = yes
+rerun = 3
+parallel_jobs = 2
+multithread_jobs = 5
+genome = ./mel_flye_assembly.fasta
+genome_size = auto
+workdir = ./01_rundir_trimmed
+polish_options = -p {multithread_jobs}
+
+[sgs_option]
+sgs_fofn = ./sgs.fofn
+sgs_options = -max_depth 100
+
+[lgs_option]
+lgs_fofn = ./lgs.fofn
+lgs_options = -min_read_len 5k -max_depth 100
+lgs_minimap2_options = -x map-ont
+
+
+#Run
+/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2021-12-07/01-nextpolish/NextPolish/nextPolish ./mel/run.cfg
 
 ```
-
+To 
 
 
 ## TOGA genome annotation

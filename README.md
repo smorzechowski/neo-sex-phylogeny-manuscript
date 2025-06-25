@@ -795,6 +795,116 @@ I used the handy snakemake pipeline FindZX from Hanna Sigeman to scan for neo-se
 
 Below is an example of how I used FindZX. I ran the pipeline in a tmux terminal session so that I could do other things while it was running. The FindZX session in tmux would submit jobs to the cluster as each rule was successfully finished. It is possible to customize resource and time SLURM requests for each submitted job with the cluster.yml file. However, I ended up overriding this with the `--cluster` command where I made the amount of time, threads, and memory uniformly the same for all submitted jobs. I couldn't justify spending the extra time to refine the amount of resources requested for the many rules.   
 
+Here is an example config.yml file:
+```
+## ================================= ##
+## findZX config file (test dataset) ##
+## ================================= ##
+
+# Variables marked with "[findZX]" or "[findZX-synteny]" are only used when deploying 
+# the pipeline with either snakefile. Other variables are used for all analyses. 
+
+threads_max: 13
+mem_max: 40000 
+  # Specify maximum number of cores [threads_max] and memory [mem_max] allocation
+
+
+# ============================ #
+# Analysis name and input data #
+
+run_name: Ptiloprora 
+  # Select an analysis name. Output files will be stored under "results/[run_name]"
+
+units: ./Ptiloprora/units.tsv
+  # Path to sample information file
+
+ref_genome: /n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ReferenceAssemblies/BFHE_MedakaAssembly/BFHE_Medaka_V1_rm1kb_refined_addedZ_V2.fasta   
+  # Path to study-species reference genome (not .gz format)
+
+synteny_ref: /n/holylfs04/LABS/edwards_lab/Lab/smorzechowski/meliphagid/ZebraFinchAssembly/GCF_003957565.2_bTaeGut1.4.pri/GCF_003957565.2_bTaeGut1.4.pri_genomic.fna
+  # [findZX-synteny] Path to synteny-species reference genome (not .gz format)
+
+synteny_name: T_guttatus
+  # [findZX-synteny] Synteny-species name (can be any string, will be used for file and directory names)
+
+
+# ================= #
+# Plotting settings #
+
+window_sizes: [25000, 50000, 100000]
+  # Choose genome window sizes for plotting (as many as you want)
+  # Optimal sizes depend on reference genome fragmentation and size of the sex-linked region
+  # Recommended sizes to start are: [50000, 100000, 1000000] (i.e. 50 kb, 100 kb, 1Mb)
+
+chr_file: ./Ptiloprora/contigs.txt
+  # [findZX] Specify a file with list of chromosomes to only plot these (otherwise leave as "None")
+
+chr_highlight: ["ONT_addedZ_V2_contig_4_segment0"]
+  # [findZX] Specify chromosomes/scaffolds to highlight in plot type 4, or leave empty
+
+synteny_chr_file: ./Ptiloprora/chromosomes.txt
+  # [findZX-synteny] Specify a file with list of chromosomes to only plot these (otherwise leave as "None")
+
+synteny_chr_highlight: ["NC_044217.2"]
+  # [findZX-synteny] Specify chromosomes/scaffolds to highlight in plot type 4, or leave empty
+
+
+# ================================== #
+# Trimming and subsampling of reads  #
+
+## These three variables control trimming and subsampling of reads
+## Set all to "false" to disable trimming and subsampling
+## Only one variable is allowed to be "true"
+
+trim_reads: true 
+  # Set to true for trimming of reads
+
+trim_and_subsample: false
+  # Set to true for trimming and subsampling of reads
+
+subsample_only: false
+  # Set to true for subsampling of reads (but not trimming)
+
+subsample_basepairs: 1888226
+  # Specify the total number of basepairs to extract from both fastq files
+  # Will be used if [trim_and_subsample] or [subsample_basepairs] is set to "true"
+
+  # Use this script to calculate expected coverage:
+  # ./code/subsampling_cov_calv.sh <REF.fasta> <WANTED_COV> 
+
+
+# ========================== #
+# findZX-specific parameters # 
+# ===== (edit if needed) ===== #
+ 
+mismatch_settings: [0.0, 0.2]
+  # Genome coverage results will be generated from the original BAM files ("unfiltered"),
+  # and two other (modifiable) mismatches settings.
+  # "0.0" = 0 mismatches allowed
+  # "0.2" = <=2 mismatches allowed
+
+minSizeScaffold: "10000"
+  # The mimimum size of scaffolds in the reference genome to be included in the results
+
+
+# ============================ #
+# External software parameters # 
+# ===== (edit if needed) ===== #
+
+params:
+  trimmomatic:
+  # Control Trimmomatic settings here
+    pe:
+      trimmer:
+        - "LEADING:3"
+        - "TRAILING:3"
+        - "SLIDINGWINDOW:4:15"
+        - "MINLEN:36"
+        - "ILLUMINACLIP:workflow/meta/adapters/TruSeq3-PE.fa:2:30:10"
+```
+
+Here is how I run the snakemake pipeline: 
+
 ```
 # Create a file of chromosomes from bTaeGut1.4.pri to highlight in the findZX plots!  
 nano chromosomes_highlight.txt 

@@ -344,6 +344,8 @@ sbatch bcftools.jobscript ${SPECIES}_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isofo
 ```
 With the vcf files in hand for each species, I ran a custom phasing script adapted from Sigeman et al 2018. See methods for details on how each site was called as Z-linked or W-linked reference or alternate, etc by comparing variant patterns in the male and female sample. 
 
+See genotype_phasing_script_I.sh in files. 
+
 ```
 ####################################
 # Author: Hanna Sigeman, 2018
@@ -394,6 +396,8 @@ else print $0,"ZW","Un",length($4)}' | tr ' ' '\t' | sed 's/break/\n/g' | sed -e
 
 The above file created an annotated VCF file with flags for each site, that the second phasing script collected and turned into a fasta file of phased W and Z sequences for each locus based on a bed file of genomic ranges of CDS for each locus.
 
+See Wlinked_cds_phasing_script_II.sh and Zlinked_cds_phasing_script_II.sh in files. 
+
 ```
 ####################################
 # Author: Hanna Sigeman, 2018
@@ -433,9 +437,75 @@ else if ($14=="N" || $14=="missing" || $14=="qual20" || $14=="depth10" || $14=="
 
 ```
 
+To include other honeyeaters in my alignments where I only had a single male sample, including Painted Honeyeater *(Grantiella picta)* and White-naped Honeyeater *(Melithreptus lunatus)*, I adapted the phasing scripts to phase just Z-linked sequences across the neo-sex chromosomes.
 
+See single_sample_genotype_phasing_script_I.sh in files.
 
+```
+cat $1 | grep -v "^#" | sed -E "s/([ATCG]+),([ATCG]+)/\1\t\2/1" | awk --re-interval '{
+if($6 ~ /^[A-Z]+,[A-Z]+/) print $0,"M","multiN",length($4)
+else if($6 ~ /^[A-Z]+/ && $5!=$6) print $0
+else print $1,$2,$3,$4,$5,$5,$6,$7,$8,$9,$10}' | tr ' ' '\t' | awk -v OFS="\t" --re-interval '{
+if (/multi/) print $0
+else if(/DP=[0-9];/) print $0,"M","depth10",length($4)
+else if ($5==".") print $0,"M","same",length($4)
+else if ($11==".") print $0,"M","missing",length($4)
+else if ($7<=20) print $0,"M","qual20",length($4)
+else if ($11 ~ /^0\/0:/) print $0,"M","ref",length($4)
+else if ($11 ~ /^0\/1:/) print $0,"M","N",length($4)
+else if ($11 ~ /^1\/1:/) print $0,"M","alt1",length($4)
+else if ($11 ~ /^1\/2:/) print $0,"M","N",length($4)
+else if ($11 ~ /^2\/2:/) print $0,"M","alt2",length($4)
+else print $0,"M","Un",length($4)}' | tr ' ' '\t' | sed -e 's/^[ \t]*//' | sed -e 's/[ \t]*$//' | grep -v ">" | \
+while read a b c d e f g h i j k l m n ; do printf $a"\t"$b"\t"$c"\t"$d"\t"$e"\t"$f"\t"$g"\t"$h"\t"$i"\t"$j"\t"$k"\t"$l"\t"$m"\t"$n"\t" ; \
+eval printf -- 'N%.s' {1..$n} ; echo ; done > $2
+```
+Then I extracted the phased sequences for the single haplotype.
 
+See single_sample_cds_phasing_script_II.sh.
+
+```
+####################################
+# Author: Hanna Sigeman, 2018
+# Contact: hanna.sigeman@biol.lu.se
+#
+# This script is the second of two used to phase whole-genome sequence data into a single haplotype using one male sample.
+# The script uses a modified VCF file which is the output of script number 1. It also requires a 5 column bed file (0-based positions)
+# where the first three columns specifies the genome ranges of the exons, the fourth column contains the name of the gene, and the fifth the cds number
+#
+# Usage: ./single_sample_cds_phasing_script_II.sh <BED file> <VCF file> <output>
+#
+# Comment:
+# <BED file> ($1) is a bed file containing genomic ranges for exons/cds. HAS to be pre-sorted by cds (from 0 to x)
+# <VCF file> ($2) is the output from script 1. <BED file> ($1) is a bed file containing genomic ranges for exons/cds.
+# <output> ($3) is the chosen output name for the fasta file containing the phased gene sequences.
+# Output: A fasta file containing haplogype where the sequence headers correspond to the gene names specified in the bed file ($1).
+#
+# Modified: Sophie Orzechowski, January 2024
+#
+# removed  awk '{if($1=="'"$cont"'") print $0}' from third line; condition already satisfied
+# added +0 to awk statement to force numerical format of intervals; otherwise there's a bug
+# changed depth20 to depth10
+# removed || $14=="covDiff" and $14=="sizediffN" from last line
+# adjusted the column numbers to reflect the # columns in the first phasing script -- hopefully correctly!
+#
+#####################################
+
+species=$4
+
+cat $1  | awk -v OFS="\t" '{print $1,$2,$3,$4,$5}' | while read cont start end gene cds
+do echo ">${species}_${gene}_${cont}_cds${cds}|${start}:${end}" ; \
+cat $2 | grep -v "^#" | awk '{if($2>="'"$start"'"+0 && $2<="'"$end"'"+0) print $0}' | awk '{
+
+# Select haplotypes for single sample (male)
+if ($12=="M") print $0}' | awk --re-interval '{
+if ($13=="ref" || $13=="same") print $4
+else if ($13=="alt") print $5
+else if ($13=="alt1") print $5
+else if ($13=="alt2") print $6
+else if ($13=="N" || $13=="missing" || $13=="qual20" || $13=="depth10" || $13=="multiN" || $13=="Un") print $15}' | tr ' ' '\t' | tr -d "\n"  ; done | sed 's/>/\n>/' > $3
+
+```
 
 ## Creating alignments of loci across the neo-sex chromosomes
 ## Expected likelihood weights

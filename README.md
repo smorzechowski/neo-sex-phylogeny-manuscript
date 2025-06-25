@@ -573,6 +573,8 @@ cat $fasta | awk '{
 
 Next, for the species on which I had run the custom phasing scripts, I had to combine all phased exons into a single line of sequence for each locus. In actuality, these were phased CDS regions because I was phasing based on a TOGA annotation of Blue-faced Honeyeater and TOGA only aligns and retains CDS information, not entire exons.
 
+Note that it was very important to concatenate the separate CDS sequences in the right order, otherwise the final transcript would be garbled and in the wrong order to be able to align to other species where I extracted transcripts from a genome annotation. Reverse complementing to get the opposite strand would not help in this case. It was essential that CDS 1, CDS 2, CDS 3, etc. were concatenated in the right order. 
+
 See combine_exons.jobscript in files.
 
 ```
@@ -652,6 +654,8 @@ basenameprefix=`echo $file |sed 's/\.maf//g'`
 
 mafft --add $newseq --genafpair --adjustdirectionaccurately --maxiterate 1000 --nuc --reorder ${fileprefix}.maf > ${basenameprefix}_added.maf
 ```
+
+***MOST importantly, I manually inspected each alignment file to determine that the sequences had been added in the right order at all steps along the way!***
 
 ## Expected likelihood weights
 ## Likelihood ratio test of mtDNA and nuclear topologies

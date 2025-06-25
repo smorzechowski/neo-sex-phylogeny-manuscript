@@ -7,7 +7,7 @@ The software and programs used in this manuscript include:
 - [FindZX](https://github.com/hsigeman/findZX)
 - [TOGA](https://github.com/hillerlab/TOGA)
   - lastz
-  - NextFlow
+  - NextFlow (v19.12.0)
 - [flye](https://github.com/mikolmogorov/Flye)
 - [NextPolish](https://github.com/Nextomics/NextPolish)
 - [YAHS](https://github.com/c-zhou/yahs)
@@ -166,13 +166,77 @@ hicaln="/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-06-1
 
 ## TOGA genome annotation
 
-To annotate genomes I used TOGA, which leverages whole-genome alignment with a high quality genome to find and annotate orthologous genes, infer exon-intron structure, gene loss, gene duplication, and identify pseudogenes.
+To annotate genomes I used TOGA, which leverages whole-genome alignment with a high-quality genome (from Gallus gallus in this case) to find and annotate orthologous genes, infer exon-intron structure, gene loss, gene duplication, and identify pseudogenes.
 
-First I created a whole-genome alignment with a [helper script](https://github.com/hillerlab/make_lastz_chains) that runs lastz with the program NextFlow. This was resource intensive and required a lot of optimization to run on a slurm-based HPC.
+First I created a whole-genome alignment with a [helper script](https://github.com/hillerlab/make_lastz_chains) that runs lastz with the program NextFlow. This was resource intensive and required a lot of optimization to run on a slurm-based HPC. I particularly had to optimize the size of the chunks to align for each genome: `seq1_chunk` and `seq2_chunk`. If the chunks were too large, the jobs would time-out or require too much memory. You may also have to adjust the total number of jobs that NextFlow is allowed to run and manage on the HPC.  
 
 ```
+#! /bin/bash
+#SBATCH -N 1
+#SBATCH -n 1
+#SBATCH -p edwards
+#SBATCH -e log/chains%A.err
+#SBATCH -o log/chains%A.out
+#SBATCH -J chains
+#SBATCH --mem=20g
+#SBATCH --time=30-00:00
+#SBATCH --account=edwards_lab
+
+module load python
+source activate lastz_chain_dependencies
+module purge
+#module load jdk/20.0.1-fasrc01
+
+export PERL5LIB=/
+
+
+export PATH=/n/home09/smorzechowski/bin/nextflow-19.12.0-edge:$PATH
+export PATH=/n/home09/smorzechowski/bin/make_lastz_chains/kent_binaries:$PATH
+export PATH=/n/home09/smorzechowski/bin/make_lastz_chains/GenomeAlignmentTools/src:$PATH
+
+which python
+which java
+
+# Genomes must be soft-masked
+
+target_name=$1
+query_name=$2
+target_genome=$3
+query_genome=$4
+project_directory=$5
+
+python /n/home09/smorzechowski/bin/make_lastz_chains/make_chains.py ${target_name} ${query_name} ${target_genome} ${query_genome} \
+--executor slurm --executor_partition edwards --executor_queuesize 200 --project_dir ${project_directory} --chaining_memory 100000 \
+--cluster_parameters '-A edwards_lab --time=15-00:00' --seq1_chunk 30000000 --seq2_chunk 7000000
+
+# --force_def
+#--continue_arg 'lastz' If you need to restart at this point
+#--continue_arg 'chainRun' if you need to restart at this point
+# 'chainRun'
+# 'cat' needed more memory for full genome, increasing from 4 GB to 40 GB, finally worked...
+# 'chainRun' to fix tmp directory location
 ```
-Then I ran
+Then, I ran the TOGA python script, supplying the resulting chain file (pair-wise alignment) and the path to the query, reference, and reference annotation bed file.
+```
+module load python
+
+which java
+export PATH=/n/home09/smorzechowski/bin/nextflow-19.12.0-edge:$PATH
+export PATH=/n/home09/smorzechowski/bin/make_lastz_chains/kent_binaries:$PATH
+
+TOGAPATH='/n/home09/smorzechowski/bin/TOGA'
+CHAINFILE=$1
+ANNOBED=$2
+REFPATH=$3
+QUERYPATH=$4
+ISOFORMS=$5
+NFCONFIG=$6
+PROJECT=$7
+#U12=$7
+
+python $TOGAPATH/toga.py $CHAINFILE $ANNOBED ${REFPATH} ${QUERYPATH} --kt --pn $PROJECT -i $ISOFORMS --nc ${NFCONFIG} --cb 1,5,15,50,100 --cjn 500 --ms
+```
+
 
 
 ## Phasing gametologs

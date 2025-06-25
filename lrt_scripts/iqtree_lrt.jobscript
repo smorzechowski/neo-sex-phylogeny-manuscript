@@ -1,0 +1,29 @@
+#!/bin/bash
+#SBATCH -N 1
+#SBATCH --cpus-per-task=12
+#SBATCH -p edwards
+#SBATCH -e log/iqtree_lrt%A.err
+#SBATCH -o log/iqtree_lrt%A.out
+#SBATCH -J iqtree_lrt
+#SBATCH --mem=100g
+#SBATCH --time=7-00:00
+
+
+module load python
+source activate iqtree
+
+# Full dataset
+alignment='genera59_mafft_min75percent_gblocks0.65_clean_nexus.phylip'
+partitions='andersen_2019_UCE_partitions_sorted.txt'
+trees='Andersen_2019_treeset.txt'
+
+# Subsampled 25% dataset
+#alignment='genera59_mafft_min75percent_gblocks0.65_clean_nexus_trimmed_alignment.phylip'
+#partitions='andersen_2019_UCE_partitions_1000_subsampled_sorted_remapped.txt'
+#trees='Andersen_2019_treeset.txt'
+
+# match PartitionFinder - test partition merging only
+#iqtree -s $alignment -p $partitions -z $trees -m TESTMERGEONLY -zb 10000 -zw -au -pre topology_test_multithread -T 8
+
+# perform model selection, merging, branch optimization before topology testing
+iqtree -s $alignment -p $partitions -z $trees -m MFP+MERGE -zb 10000 -zw -au -pre topology_test_full_dataset -T 12

@@ -791,7 +791,32 @@ iqtree -s $alignment -p $partitions -z $trees -m MFP+MERGE -zb 10000 -zw -au -pr
 
 ## Scanning for neo-sex chromosomes with FindZX
 
+I used the handy snakemake pipeline FindZX from Hanna Sigeman to scan for neo-sex chromosomes using genomic signatures of sex-linkage from whole-genome resequencing data: sex differences in heterozygosity (indicative of young sex chromosomes), and sex differences in mapping depth (indicative of old sex chromosomes). Importantly, FindZX requires a homogametic reference genome to map resequencing reads from males and females. I found that it is possible to use just a single individual of each sex, with fairly low coverage (5-10x), to reliably detect neo-sex chromosomes with these metrics. 
 
+Below is an example of how I used FindZX. I ran the pipeline in a tmux terminal session so that I could do other things while it was running. The FindZX session in tmux would submit jobs to the cluster as each rule was successfully finished. It is possible to customize resource and time SLURM requests for each submitted job with the cluster.yml file. However, I ended up overriding this with the `--cluster` command where I made the amount of time, threads, and memory uniformly the same for all submitted jobs. I couldn't justify spending the extra time to refine the amount of resources requested for the many rules.   
+
+```
+# Create a file of chromosomes from bTaeGut1.4.pri to highlight in the findZX plots!  
+nano chromosomes_highlight.txt 
+NC_044241.2  
+NC_044217.2 
+NC_044212.2
+
+# LOGIN node:  holylogin04
+tmux new -s new_sesh
+
+conda activate findingZX 
+snakemake -s workflow/findZX-synteny -j 8 -R all --configfile Ptiloprora/config.yml --cluster-config Ptiloprora/cluster.yml --cluster " sbatch -p shared -t 07-00:00 -n 12 --mem 40G -N 1 -A oeb275r "  --use-conda
+
+# COMPLETED successfully! Now create the html doc! 
+
+tmux new -s ptiloprora_report 
+
+started an srun session from holylogin04 
+conda activate findingZX 
+
+snakemake -s workflow/findZX-synteny --configfile Ptiloprora/config.yml --cores 1 -R all -k --use-conda --report report_Ptiloprora.html
+```
 
 
 

@@ -657,7 +657,63 @@ mafft --add $newseq --genafpair --adjustdirectionaccurately --maxiterate 1000 --
 
 ***MOST importantly, I manually inspected each alignment file to determine that the sequences had been added in the right order at all steps along the way!***
 
+I used gblocks to trim the alignments.
+
+```
+#!/bin/bash
+
+module load python
+source activate gblocks
+
+Gblocks $alignment -t=c -p=y -e=.gbc  
+Gblocks $alignment -t=d -p=y -e=.gbd
+```
+
 ## Expected likelihood weights
+
+Once I had the final, trimmed alignment files for each locus across the neo-sex chromosomes, it was very straightforward to run the expected likelihood weight analyses in IQTree. I manually created tree topologies representing each scenario of recombination suppression against a nuclear tree backbone and mitochondrial tree backbone. I did this in the program Mesquite. Then, I provided IQTree with these predefined topologies and tested each alignment against them all with a suite of metrics, including expected likelihood weights.
+
+```
+module load python
+source activate iqtree
+
+alignment=$1
+trees=$2
+output=$3
+
+# Run ELW analysis
+iqtree -s $alignment --trees $trees --test 100000 --test-au --prefix $output
+
+#-redo
+```
+
+I used awk and sed to combine all results together and create a csv file that I could manipulate in R. 
+
+```
+
+cat NewPAR_Ecyan_transcript_id_present_longest_transcript.txt | sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' | sed -e 's|$|_alignment_revsort_added_renamed_all.maf.gbc.iqtree|' > NewPAR_iqtree_files.txt
+
+cat $(cat NewPAR_iqtree_files.txt) > NewPAR.iqtree.reports 
+
+cat NewZ_Ecyan_transcript_id_present_longest_transcript.txt | sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' | sed -e 's|$|_alignment_revsort_added_renamed_all.maf.gbc.iqtree|' > NewZ_iqtree_files.txt
+
+cat $(cat NewZ_iqtree_files.txt) > NewZ.iqtree.reports
+
+cat OldZ_Ecyan_transcript_id_present_longest_transcript.txt | sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' | sed -e 's|$|_alignment_revsort_added_renamed_all.maf.gbc.iqtree|' > OldZ_iqtree_files.txt
+
+cat $(cat OldZ_iqtree_files.txt) > OldZ.iqtree.reports
+
+
+awk '/USER TREES/{flag=1;next}/ALISIM COMMAND/{flag=0}flag' NewZ.iqtree.reports > NewZ.iqtree.logtable.reports
+
+awk '/USER TREES/{flag=1;next}/ALISIM COMMAND/{flag=0}flag' NewPAR.iqtree.reports > NewPAR.iqtree.logtable.reports
+
+awk '/USER TREES/{flag=1;next}/ALISIM COMMAND/{flag=0}flag' OldZ.iqtree.reports > OldZ.iqtree.logtable.reports
+
+```
+
+I manually finished formatting the files and visualized results in ELW_recombination_suppression_figures.R -- see files. 
+
 ## Likelihood ratio test of mtDNA and nuclear topologies
 
 

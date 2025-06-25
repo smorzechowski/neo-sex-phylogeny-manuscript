@@ -34,6 +34,7 @@ The software and programs used in this manuscript include:
 - [Creating alignments of loci across the neo-sex chromosomes](#creating-alignments-of-loci-across-the-neo-sex-chromosomes)
 - [Expected likelihood weights](#expected-likelihood-weights)
 - [Likelihood ratio test of mtDNA and nuclear topologies](#likelihood-ratio-test-of-mtDNA-and-nuclear-topologies)
+- [Scanning for neo-sex chromosomes with FindZX](#scanning-for-neo-sex-chromosomes-with-findzx)
 
 ## Assembling genomes, polishing genomes, and scaffolding with HiC
 
@@ -692,22 +693,17 @@ I used awk and sed to combine all results together and create a csv file that I 
 ```
 
 cat NewPAR_Ecyan_transcript_id_present_longest_transcript.txt | sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' | sed -e 's|$|_alignment_revsort_added_renamed_all.maf.gbc.iqtree|' > NewPAR_iqtree_files.txt
-
 cat $(cat NewPAR_iqtree_files.txt) > NewPAR.iqtree.reports 
 
 cat NewZ_Ecyan_transcript_id_present_longest_transcript.txt | sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' | sed -e 's|$|_alignment_revsort_added_renamed_all.maf.gbc.iqtree|' > NewZ_iqtree_files.txt
-
 cat $(cat NewZ_iqtree_files.txt) > NewZ.iqtree.reports
 
 cat OldZ_Ecyan_transcript_id_present_longest_transcript.txt | sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' | sed -e 's|$|_alignment_revsort_added_renamed_all.maf.gbc.iqtree|' > OldZ_iqtree_files.txt
-
 cat $(cat OldZ_iqtree_files.txt) > OldZ.iqtree.reports
 
-
+# gather results
 awk '/USER TREES/{flag=1;next}/ALISIM COMMAND/{flag=0}flag' NewZ.iqtree.reports > NewZ.iqtree.logtable.reports
-
 awk '/USER TREES/{flag=1;next}/ALISIM COMMAND/{flag=0}flag' NewPAR.iqtree.reports > NewPAR.iqtree.logtable.reports
-
 awk '/USER TREES/{flag=1;next}/ALISIM COMMAND/{flag=0}flag' OldZ.iqtree.reports > OldZ.iqtree.logtable.reports
 
 ```
@@ -715,6 +711,85 @@ awk '/USER TREES/{flag=1;next}/ALISIM COMMAND/{flag=0}flag' OldZ.iqtree.reports 
 I manually finished formatting the files and visualized results in ELW_recombination_suppression_figures.R -- see files. 
 
 ## Likelihood ratio test of mtDNA and nuclear topologies
+
+I conducted a likelihood ratio test of the mtDNA and nuclear species tree topologies to confirm the presence of mitonuclear discordance. I used data from Andersen, M. J., McCullough, J. M., Friedman, N. R., Peterson, A. T., Moyle, R. G., Joseph, L., & Nyári, Á. S. (2019). Ultraconserved elements resolve genus-level relationships in a major Australasian bird radiation (Aves: Meliphagidae). Emu - Austral Ornithology, 119(3), 218–232.
+
+I manually created trees in Mesquite matching the mtDNA and nuclear topologies in Andersen et al. 2019. I randomly subset 1000 loci from the supermatrix of UCE loci used to build the species tree. I used the partition file to extract a subset of the loci. 
+
+```
+shuf -n 1000 andersen_2019_UCE_partitions_sorted.txt > andersen_2019_UCE_partitions_1000_subsampled.txt
+
+# and sort again
+awk -F'=' '{ split($2, r, "-"); gsub(/[^0-9]/, "", r[1]); print r[1] "\t" $0 }' andersen_2019_UCE_partitions_1000_subsampled.txt | sort -n | cut -f2- > andersen_2019_UCE_partitions_1000_subsampled_sorted.txt
+
+# extract site ranges and build a site list
+
+awk -F= '{ gsub(/[^0-9\-]/, "", $2); split($2, r, "-"); for (i = r[1]; i <= r[2]; i++) print i }' andersen_2019_UCE_partitions_1000_subsampled_sorted.txt > andersen_2019_UCE_partitions_1000_subsampled_site_list.txt
+
+
+# remap the partition file - important!
+awk -F= 'BEGIN {pos=1}
+{
+    split($2, r, "-")
+    len = r[2] - r[1] + 1
+    printf("%s = %d-%d\n", $1, pos, pos+len-1)
+    pos += len
+}' andersen_2019_UCE_partitions_1000_subsampled_sorted.txt > andersen_2019_UCE_partitions_1000_subsampled_sorted_remapped.txt
+
+# trim full alignment
+awk 'NR==1 {
+    num_taxa = $1
+    aln_len = $2
+    next
+}
+{
+    taxa[NR-1] = $1
+    seqs[NR-1] = $2
+}
+END {
+    while ((getline line < "andersen_2019_UCE_partitions_1000_subsampled_site_list.txt") > 0) pos[line] = 1
+
+    new_len = 0
+    for (j = 1; j <= aln_len; j++) {
+        if (pos[j]) new_len++
+    }
+
+    print num_taxa, new_len
+
+    for (i = 1; i <= num_taxa; i++) {
+        out = ""
+        for (j = 1; j <= length(seqs[i]); j++) {
+            if (pos[j]) out = out substr(seqs[i], j, 1)
+        }
+        print taxa[i], out
+    }
+}' genera59_mafft_min75percent_gblocks0.65_clean_nexus.phylip > genera59_mafft_min75percent_gblocks0.65_clean_nexus_trimmed_alignment.phylip
+
+```
+
+Then I ran IQTree to test the two topologies 
+```
+module load python
+source activate iqtree
+
+# Full dataset
+alignment='genera59_mafft_min75percent_gblocks0.65_clean_nexus.phylip'
+partitions='andersen_2019_UCE_partitions_sorted.txt'
+trees='Andersen_2019_treeset.txt'
+
+# Subsampled 25% dataset
+#alignment='genera59_mafft_min75percent_gblocks0.65_clean_nexus_trimmed_alignment.phylip'
+#partitions='andersen_2019_UCE_partitions_1000_subsampled_sorted_remapped.txt'
+#trees='Andersen_2019_treeset.txt'
+
+# match PartitionFinder - test partition merging only
+#iqtree -s $alignment -p $partitions -z $trees -m TESTMERGEONLY -zb 10000 -zw -au -pre topology_test_multithread -T 8
+
+# perform model selection, merging, branch optimization before topology testing
+iqtree -s $alignment -p $partitions -z $trees -m MFP+MERGE -zb 10000 -zw -au -pre topology_test_full_dataset -T 12
+```
+
+## Scanning for neo-sex chromosomes with FindZX
 
 
 

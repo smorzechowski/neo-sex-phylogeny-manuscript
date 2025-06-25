@@ -79,7 +79,7 @@ lgs_minimap2_options = -x map-ont
 #Run
 /n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2021-12-07/01-nextpolish/NextPolish/nextPolish ./mel/run.cfg
 ```
-To scaffold the genomes to chromosome-level I used the HiC assembler YAHS. First I adapted Arima pipeline to map HiC reads to the draft genomes.
+To scaffold the genomes to chromosome-level I used the HiC assembler YAHS. First I adapted an Arima pipeline to map HiC reads to the draft genomes.
 
 ```
 source activate samtools
@@ -220,7 +220,7 @@ python /n/home09/smorzechowski/bin/make_lastz_chains/make_chains.py ${target_nam
 # 'cat' needed more memory for full genome, increasing from 4 GB to 40 GB, finally worked...
 # 'chainRun' to fix tmp directory location
 ```
-Then, I ran the TOGA python script, supplying the resulting chain file (pair-wise alignment) and the path to the query, reference, and reference annotation bed file. I ran TOGA on the entire Blue-faced Honeyeater genome, but I extracted the contigs/chromosomes homologous to Chr Z and Chr 5 in Noisy Miner, Striated Pardalote, Helmeted Honeyeater, Yellow-rumped Thornbill. 
+Then, I ran the TOGA python script, supplying the resulting chain file (pairwise alignment) and the path to the query, reference, and reference annotation bed file. I ran TOGA on the entire Blue-faced Honeyeater genome, but I extracted the contigs/chromosomes homologous to Chr Z and Chr 5 in Noisy Miner, Striated Pardalote, Helmeted Honeyeater, Yellow-rumped Thornbill. 
 ```
 module load python
 
@@ -244,9 +244,9 @@ python $TOGAPATH/toga.py $CHAINFILE $ANNOBED ${REFPATH} ${QUERYPATH} --kt --pn $
 
 I used custom scripts adapted from Sigeman et al. 2018 to phase W-linked and Z-linked gametologs from loci on the neo-sex chromosomes. 
 
-The scripts involve phasing variants from vcf files containing male and female samples using rules of expected hetero- and homozygosity on sex chromosomes when mapping each sex a homogametic (ZZ) reference genome.  
+The scripts involve phasing variants from VCF files of male and female samples using rules of expected hetero- and homozygosity on sex chromosomes when mapping each sex a homogametic (ZZ) reference genome.  
 
-To create vcf files, I created a homogametic version of the Blue-faced Honeyeater genome by removing the neo-W and then mapped Illumina short reads from a male and female Blue-faced Honeyeater, White-eared Honeyeater, Little Friarbird, which all possess neo-sex chromosomes. I used BWA, picard, and samtools to create bam files, mark duplicates, add read groups, validate bam files.  
+To create VCF files, I made a homogametic version of the Blue-faced Honeyeater genome by removing the neo-W and then mapped Illumina short reads from a male and female Blue-faced Honeyeater, White-eared Honeyeater, Little Friarbird, which all possess neo-sex chromosomes. I used BWA, picard, and samtools to create bam files, mark duplicates, add read groups, validate bam files.  
 
 ```
 # Input parameters
@@ -343,7 +343,7 @@ freebayes-parallel $REGIONS 20 -f ${GENOME} --bam-list ${BAMLIST} --report-monom
 # remove duplicates in the vcf file and save to new file
 sbatch bcftools.jobscript ${SPECIES}_neoZ_Ecyan_HiC_v1.0_sansW_cds_longest_isoform
 ```
-With the vcf files in hand for each species, I ran a custom phasing script adapted from Sigeman et al 2018. See methods for details on how each site was called as Z-linked or W-linked reference or alternate, etc by comparing variant patterns in the male and female sample. 
+With the VCF files in hand for each species, I ran a custom phasing script adapted from Sigeman et al 2018. See methods for details on how each site was called as Z-linked or W-linked reference or alternate, etc by comparing variant patterns in the male and female sample. 
 
 See genotype_phasing_script_I.sh in files. 
 

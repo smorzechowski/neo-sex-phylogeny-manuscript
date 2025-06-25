@@ -506,8 +506,153 @@ else if ($13=="alt2") print $6
 else if ($13=="N" || $13=="missing" || $13=="qual20" || $13=="depth10" || $13=="multiN" || $13=="Un") print $15}' | tr ' ' '\t' | tr -d "\n"  ; done | sed 's/>/\n>/' > $3
 
 ```
-
 ## Creating alignments of loci across the neo-sex chromosomes
+
+To include sequences from TOGA annotated genomes of Helmeted Honeyeater, Noisy Miner, Striated Pardalote, Yellow-rumped Thornbill, I extracted CDS sequences and subset the loci on Chr Z and Chr 5.
+
+See agat_get_cds_fasta.jobscript in files. 
+
+```
+# Example: get fasta for Chry
+gff=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/galGal6_to_Chry_5Z.annotation.gtf
+genome=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/04-annotation/Chry_Chr5_Z_Ragtag.fasta
+fold $genome > folded_Chry_Chr5_Z_Ragtag.fasta
+output=Chry_Chr5_Z_transcripts.fasta
+genome_fold=folded_Chry_Chr5_Z_Ragtag.fasta
+sbatch agat_get_cds_fasta.jobscript $gff $genome_fold $output
+
+gff=$1
+genome=$2
+output=$3
+
+export PERL5LIB=/
+
+singularity exec --cleanenv /n/home09/smorzechowski/bin/agat_0.8.0--pl5262hdfd78af_0.sif \
+agat_sp_extract_sequences.pl --gff $gff --fasta $genome -o $output -t cds --plus_strand_only
+```
+
+This is an example of subsetting transcripts for one species.
+```
+# subset transcripts for Striat, headclean
+sequences='/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments/Striat_Chr5_Z_transcripts.fasta'
+awk '{print $1}' $sequences > headcleaned_Striat_Chr5_Z_transcripts.fasta
+genes='Ecyan_transcript_id_present_longest_transcript.txt'
+sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' $genes > genes_stripped.txt
+grep -f genes_stripped.txt headcleaned_Striat_Chr5_Z_transcripts.fasta | awk '{print $1}' | sed -e 's/^>//g' > gene_list.txt
+sbatch seqtk.jobscript headcleaned_Striat_Chr5_Z_transcripts.fasta gene_list.txt
+
+```
+
+I also added the species name to each fasta sequence.
+
+```
+sed 's/>/>Striat_/I' subset_headcleaned_Striat_Chr5_Z_transcripts.fasta > namefix_subset_headcleaned_Striat_Chr5_Z_transcripts.fasta
+sed 's/>/>Chry_/I' subset_headcleaned_Chry_Chr5_Z_transcripts.fasta > namefix_subset_headcleaned_Chry_Chr5_Z_transcripts.fasta
+sed 's/>/>Mmel_/I' subset_headcleaned_Mmel_Chr5_Z_transcripts.fasta > namefix_subset_headcleaned_Mmel_Chr5_Z_transcripts.fasta
+sed 's/>/>HeHo_/I' subset_headcleaned_HeHo_Chr5_Z_transcripts.fasta > namefix_subset_headcleaned_HeHo_Chr5_Z_transcripts.fasta
+
+```
+
+Then I split the resulting fasta files into a separate file for each locus.
+
+See split_fasta_files.jobscript in files. 
+
+```
+fasta=$1
+species=$2
+
+
+# First, split each subset fasta file into separate files per sequence
+# Do this in a separate results directory I guess
+
+cat $fasta | awk '{
+        if (substr($0, 1, 1)==">") {filename=(substr($0,2) ".fasta")}
+        print $0 > filename
+}'
+```
+
+Next, for the species on which I had run the custom phasing scripts, I had to combine all phased exons into a single line of sequence for each locus. In actuality, these were phased CDS regions because I was phasing based on a TOGA annotation of Blue-faced Honeyeater and TOGA only aligns and retains CDS information, not entire exons.
+
+See combine_exons.jobscript in files.
+
+```
+bed=$1
+fasta=$2
+haplotype=$3
+species=$4
+output=$5
+
+#don't think I want to sort the bed file, just keep unique transcript names
+
+###
+awk '{print $4}' $bed | uniq | while read G; do cat $fasta | paste  - -  | grep -F "${haplotype}_${G}" \
+| tr "\t" "\n" | awk -v G=$G -v hap=$haplotype -v spec=$species 'NR==1 {printf(">%s_%s_%s\n",spec,hap,G);} (NR%2==0) {print}' >> $output; done
+
+###
+
+# Now remove the extra line breaks:
+cat $output | awk '!/^>/ { printf "%s", $0; n = "\n" }  /^>/ { print n $0; n = "" }  END { printf "%s", n } ' > formatted_${output}
+```
+
+I did the same for the species where I had a single male sample -- see combine_exons_single_sample.jobscript in files.
+
+
+Next, I split the fasta files into separate files per sequence and then concatenated all files of the same transcript together (to make a multi-species fasta file for phylogenetic alignment.
+
+See format_fasta_alignments.jobscript in files.
+
+```
+#fasta=$1
+#species=$2
+#transcripts=$3
+#filepath=/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-11-28/18-alignments/results
+
+# First, split each subset fasta file into separate files per sequence
+# Do this in a separate directory I guess
+
+#cat $fasta | awk '{
+#        if (substr($0, 1, 1)==">") {filename=(substr($0,2) ".fasta")}
+#        print $0 > filename
+#}'
+
+# Next, combine (concatenate) all files of the same transcript together
+
+# strip the transcript names
+#sed -e 's/\.[[:digit:]]\+\.[[:digit:]]\+//g' $transcripts > transcripts_stripped.txt
+
+#for transcript in $(< transcripts_stripped.txt);
+#do cat ${species}_*${transcript}*.fasta > ${transcript}_alignment.fasta; done
+
+```
+
+To align the phased sequences, I used mafft.
+
+```
+module load python
+source activate te_annot
+
+
+# Round 1: alignment the phased sequences
+#echo "the fasta file is $1"
+#fileprefix=`echo $1 |sed 's/\.fasta//g'`
+#mafft ${fileprefix}.fasta > ${fileprefix}.maf
+```
+
+To add the extracted sequences from the species with TOGA annotations, I used mafft with the flag `--adjustdirectionaccurately` to ensure that the correct strand was aligned to the rest of the sequences.
+
+```
+# Round 2: add additional sequences in the right order
+echo "the alignment file is $1"
+newseq=$2
+fileprefix=`echo $1 |sed 's/\.maf//g'`
+#basenameprefix=basename $1
+
+file=${1##*/}
+basenameprefix=`echo $file |sed 's/\.maf//g'`
+
+mafft --add $newseq --genafpair --adjustdirectionaccurately --maxiterate 1000 --nuc --reorder ${fileprefix}.maf > ${basenameprefix}_added.maf
+```
+
 ## Expected likelihood weights
 ## Likelihood ratio test of mtDNA and nuclear topologies
 

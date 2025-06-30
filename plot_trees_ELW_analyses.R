@@ -44,9 +44,10 @@ for(i in c(1:length(trees))) {
   trees[[i]]$tip.label[trees[[i]]$tip.label=="Pcitreogularis_Z"] <- "Little_Friarbird_Z"
   trees[[i]]$tip.label[trees[[i]]$tip.label=="Nleucotis_W"] <- "White-eared_Honeyeater_W"
   trees[[i]]$tip.label[trees[[i]]$tip.label=="Ecyanotis_W"] <- "Blue-faced_Honeyeater_W"
-  trees[[i]]$tip.label[trees[[i]]$tip.label=="Pcitreogularis_W"] <- "Little_Friarbird_W"}
+  trees[[i]]$tip.label[trees[[i]]$tip.label=="Pcitreogularis_W"] <- "Silver-crowned_Friarbird_W"}
 
 # rename tips with Common Names and added Z-W
+# update Philemon name
 for(i in c(1:length(trees))) {
   trees[[i]]$tip.label[trees[[i]]$tip.label=="Gpicta"] <- "Painted_Honeyeater_added_Z"
   trees[[i]]$tip.label[trees[[i]]$tip.label=="Malbogularis"] <- "White-naped_Honeyeater_added_Z"
@@ -59,7 +60,7 @@ for(i in c(1:length(trees))) {
   trees[[i]]$tip.label[trees[[i]]$tip.label=="Pcitreogularis_Z"] <- "Little_Friarbird_added_Z"
   trees[[i]]$tip.label[trees[[i]]$tip.label=="Nleucotis_W"] <- "White-eared_Honeyeater_added_W"
   trees[[i]]$tip.label[trees[[i]]$tip.label=="Ecyanotis_W"] <- "Blue-faced_Honeyeater_added_W"
-  trees[[i]]$tip.label[trees[[i]]$tip.label=="Pcitreogularis_W"] <- "Little_Friarbird_added_W"}
+  trees[[i]]$tip.label[trees[[i]]$tip.label=="Pcitreogularis_W"] <- "Silver-crowned_Friarbird_added_W"}
 
 
 #From the list of tip labels, copy the name of the outgroup species
@@ -114,24 +115,25 @@ plot(ladderize(trees[[9]],right=FALSE), tip.color=c("black","black","red","red",
 #############################################################################################
 # Create 2 x 3 plot for Figure 6 
 
-png("trees_ELW_figure.png", width = 12, height = 6, units = "in", res = 600,bg='transparent',type="cairo")
+getwd()
+png("trees_ELW_figure_updated_Philemon_name.png", width = 12, height = 6, units = "in", res = 600,bg='transparent',type="cairo")
 layout(matrix(1:6,2,3,byrow=FALSE))
 par(mar=c(2,0.3,2,0.3))
 
 #T1Z <- drop.tip(trees[[1]],c('N_leucotis_W','E_cyanotis_W','P_citreogularis_W'))
 #T1Z$tip.label
 
-T1Z <- drop.tip(trees[[1]],c('White-eared_Honeyeater_W','Blue-faced_Honeyeater_W','Little_Friarbird_W'))
+T1Z <- drop.tip(trees[[1]],c('White-eared_Honeyeater_W','Blue-faced_Honeyeater_W','Silver-crowned_Friarbird_W'))
 T1Z$tip.label
 T1Z$tip.label[T1Z$tip.label=="Helmeted_Honeyeater"] <- "Helmeted_Honeyeater_Z"
 T1Z$tip.label[T1Z$tip.label=="Noisy_Miner"] <- "Noisy_Miner_Z"
 T1Z$tip.label[T1Z$tip.label=="Striated_Pardalote"] <- "Striated_Pardalote_Z"
 T1Z$tip.label[T1Z$tip.label=="Yellow-rumped_Thornbill"] <- "Yellow-rumped_Thornbill_Z"
-#T1Z$tip.label[T1Z$tip.label=="White-naped_Honeyeater_added_Z"] <- "White-naped_Honeyeater_ancestral_Z"
-#T1Z$tip.label[T1Z$tip.label=="Painted_Honeyeater_added_Z"] <- "Painted_Honeyeater_ancestral_Z"
-#T1Z$tip.label[T1Z$tip.label=="White-eared_Honeyeater_added_Z"] <- "White-eared_Honeyeater_ancestral_Z"
-#T1Z$tip.label[T1Z$tip.label=="Blue-faced_Honeyeater_added_Z"] <- "Blue-faced_Honeyeater_ancestral_Z"
-#T1Z$tip.label[T1Z$tip.label=="Little_Friarbird_added_Z"] <- "Little_Friarbird_ancestral_Z"
+#T1Z$tip.label[T1Z$tip.label=="White-naped_Honeyeater_added_Z"] <- "White-naped_Honeyeater_Z"
+#T1Z$tip.label[T1Z$tip.label=="Painted_Honeyeater_added_Z"] <- "Painted_Honeyeater_Z"
+#T1Z$tip.label[T1Z$tip.label=="White-eared_Honeyeater_added_Z"] <- "White-eared_Honeyeater_Z"
+#T1Z$tip.label[T1Z$tip.label=="Blue-faced_Honeyeater_added_Z"] <- "Blue-faced_Honeyeater_Z"
+#T1Z$tip.label[T1Z$tip.label=="Little_Friarbird_added_Z"] <- "Little_Friarbird_Z"
 
 
 plot(ladderize(T1Z,right=FALSE),tip.color=c("blue","blue","blue","blue",
@@ -141,7 +143,7 @@ plot(ladderize(T1Z,right=FALSE),tip.color=c("blue","blue","blue","blue",
 #T2Z <- drop.tip(trees[[2]],c('N_leucotis_W','E_cyanotis_W','P_citreogularis_W'))
 #T2Z$tip.label
 
-T2Z <- drop.tip(trees[[2]],c('White-eared_Honeyeater_W','Blue-faced_Honeyeater_W','Little_Friarbird_W'))
+T2Z <- drop.tip(trees[[2]],c('White-eared_Honeyeater_W','Blue-faced_Honeyeater_W','Silver-crowned_Friarbird_W'))
 T2Z$tip.label
 T2Z$tip.label[T2Z$tip.label=="Helmeted_Honeyeater"] <- "Helmeted_Honeyeater_Z"
 T2Z$tip.label[T2Z$tip.label=="Noisy_Miner"] <- "Noisy_Miner_Z"

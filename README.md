@@ -1,4 +1,4 @@
-# Scripts associated with the manuscript "Phylogenetic distribution and recombination suppression of neo-sex chromosomes in honeyeaters (Aves: Meliphagidae)"
+# Scripts associated with the manuscript "Neo-sex chromosomes track the mitochondrial phylogeny and exhibit an extensive added stratum of recombination suppression in honeyeaters (Aves: Meliphagidae)"
 
 This readme provides an overview of the analyses conducted in this manuscript. 
 

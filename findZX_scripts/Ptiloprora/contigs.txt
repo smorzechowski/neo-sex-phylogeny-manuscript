@@ -1,0 +1,4 @@
+ONT_addedZ_V2_contig_11_segment0
+ONT_addedZ_V2_contig_14_segment0 
+ONT_addedZ_V2_contig_4_segment0 
+ONT_addedZ_V2_scaffold_13_segment0

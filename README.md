@@ -121,20 +121,20 @@ echo "### Step 0: Check output directories exist & create them as needed"
 #echo "### Step 0: Index reference"
 #$BWA index -a bwtsw $REF
 
-#echo "### Step 1.A: FASTQ to BAM (1st)"
-#$BWA mem -t $CPU $REF $IN_DIR/$SRA\_R1.fastq.gz | $SAMTOOLS view -@ $CPU -Sb  - > $RAW_DIR/$SRA\_R1.bam
+echo "### Step 1.A: FASTQ to BAM (1st)"
+$BWA mem -t $CPU $REF $IN_DIR/$SRA\_R1.fastq.gz | $SAMTOOLS view -@ $CPU -Sb  - > $RAW_DIR/$SRA\_R1.bam
 
-#echo "### Step 1.B: FASTQ to BAM (2nd)"
-#$BWA mem -t $CPU $REF $IN_DIR/$SRA\_R2.fastq.gz | $SAMTOOLS view -@ $CPU -Sb  - > $RAW_DIR/$SRA\_R2.bam
+echo "### Step 1.B: FASTQ to BAM (2nd)"
+$BWA mem -t $CPU $REF $IN_DIR/$SRA\_R2.fastq.gz | $SAMTOOLS view -@ $CPU -Sb  - > $RAW_DIR/$SRA\_R2.bam
 
-#echo "### Step 2.A: Filter 5' end (1st)"
-#$SAMTOOLS view -h $RAW_DIR/$SRA\_R1.bam | perl $FILTER | $SAMTOOLS view  -Sb - > $FILT_DIR/$SRA\_R1.bam
+echo "### Step 2.A: Filter 5' end (1st)"
+$SAMTOOLS view -h $RAW_DIR/$SRA\_R1.bam | perl $FILTER | $SAMTOOLS view  -Sb - > $FILT_DIR/$SRA\_R1.bam
 
-#echo "### Step 2.B: Filter 5' end (2nd)"
-#$SAMTOOLS view -h $RAW_DIR/$SRA\_R2.bam | perl $FILTER | $SAMTOOLS view  -Sb - > $FILT_DIR/$SRA\_R2.bam
+echo "### Step 2.B: Filter 5' end (2nd)"
+$SAMTOOLS view -h $RAW_DIR/$SRA\_R2.bam | perl $FILTER | $SAMTOOLS view  -Sb - > $FILT_DIR/$SRA\_R2.bam
 
-#echo "### Step 3A: Pair reads & mapping quality filter"
-#perl $COMBINER $FILT_DIR/$SRA\_R1.bam $FILT_DIR/$SRA\_R2.bam $SAMTOOLS $MAPQ_FILTER | $SAMTOOLS view -bS -t $FAIDX - | $SAMTOOLS sort -@ $CPU -o $TMP_DIR/$SRA.bam -
+echo "### Step 3A: Pair reads & mapping quality filter"
+perl $COMBINER $FILT_DIR/$SRA\_R1.bam $FILT_DIR/$SRA\_R2.bam $SAMTOOLS $MAPQ_FILTER | $SAMTOOLS view -bS -t $FAIDX - | $SAMTOOLS sort -@ $CPU -o $TMP_DIR/$SRA.bam -
 
 #echo "### Step 3.B: Add read group"
 #java -Xmx4G -Djava.io.tmpdir=temp/ -jar $PICARD AddOrReplaceReadGroups INPUT=$TMP_DIR/$SRA.bam OUTPUT=$PAIR_DIR/$SRA.bam ID=$SRA LB=$SRA SM=$LABEL PL=ILLUMINA PU=none
@@ -171,7 +171,6 @@ hicaln="/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-06-1
 Next, I generated HiC contact maps and input files for [JuiceBox](https://github.com/aidenlab/Juicebox/wiki/Download), a GUI for manual curation of HiC assemblies. This is adapted from the same [script](https://github.com/c-zhou/yahs/blob/main/scripts/run_yahs.sh) by the YaHS developers.
 
 ```
-
 juicer_tools="java -Xmx32G -jar /n/home09/smorzechowski/bin/juicer/SLURM/scripts/juicer_tools.1.9.9_jcuda.0.8.jar pre"
 
 # generate input file for juicer_tools
@@ -192,7 +191,7 @@ cat ${outdir}/tmp_juicer_pre_JBAT.log | grep "PRE_C_SIZE" | cut -d' ' -f2- >${ou
 (${juicer_tools} ${outdir}/${out}_JBAT.txt ${outdir}/${out}_JBAT.hic.part ${outdir}/${out}_JBAT.chrom.sizes) && (mv ${outdir}/${out}_JBAT.hic.part ${outdir}/${out}_JBAT.hic)
 
 ```
-I used the GUI [JuiceBox](https://aidenlab.org/juicebox/) on my laptop to compare the HiC contact matrix with the assembly and manually curate it as needed (rarely, contigs may be incorrectly scaffolded together by YaHS). I learned how to use JuiceBox from this [YouTube tutorial](https://www.youtube.com/watch?v=Nj7RhQZHM18).
+I used the GUI [JuiceBox](https://aidenlab.org/juicebox/) on my laptop to compare the HiC contact matrix with the assembly and manually curate it as needed (rarely, contigs may be incorrectly joined together by YaHS). I learned how to use JuiceBox from this [YouTube tutorial](https://www.youtube.com/watch?v=Nj7RhQZHM18).
 
 After manual curation, I ran the following to incoporate the manual edits into the final assembly version:
 

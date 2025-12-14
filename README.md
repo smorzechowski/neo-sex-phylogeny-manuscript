@@ -79,7 +79,7 @@ lgs_minimap2_options = -x map-ont
 #Run
 /n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2021-12-07/01-nextpolish/NextPolish/nextPolish ./mel/run.cfg
 ```
-To scaffold the genomes to chromosome-level I used the HiC assembler YaHS. First I adapted an [Arima pipeline](https://github.com/ArimaGenomics/mapping_pipeline/blob/master/arima_mapping_pipeline.sh) available on Arima's github page to map HiC reads to the draft genomes.
+To scaffold the genomes to chromosome-level I used the HiC assembler YaHS. First I ran an [Arima pipeline](https://github.com/ArimaGenomics/mapping_pipeline/blob/master/arima_mapping_pipeline.sh) available on Arima's GitHub page to map HiC reads to the draft genomes.
 
 ```
 source activate samtools
@@ -151,7 +151,7 @@ perl $STATS $REP_DIR/$REP_LABEL.bam > $REP_DIR/$REP_LABEL.bam.stats
 
 echo "Finished Mapping Pipeline through Duplicate Removal"
 ```
-Next, I ran YaHS to scaffold the contigs using the HiC-aligned reads. I adapted a [script](https://github.com/c-zhou/yahs/blob/main/scripts/run_yahs.sh) available on the YaHS github page.
+Next, I ran YaHS to scaffold the contigs using the HiC-aligned reads. I used a [script](https://github.com/c-zhou/yahs/blob/main/scripts/run_yahs.sh) available on the YaHS github page.
 ```
 source activate pretextmap
 # installed samtools within pretextmap env too!
@@ -168,7 +168,7 @@ hicaln="/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-06-1
 
 ```
 
-Next, I generated HiC contact maps and input files for [JuiceBox](https://github.com/aidenlab/Juicebox/wiki/Download), a GUI for manual curation of HiC assemblies. This is adapted from the same [script](https://github.com/c-zhou/yahs/blob/main/scripts/run_yahs.sh) by the YaHS developers.
+Next, I generated HiC contact maps and input files for [JuiceBox](https://github.com/aidenlab/Juicebox/wiki/Download), a GUI for manual curation of HiC assemblies. This is from the same [script](https://github.com/c-zhou/yahs/blob/main/scripts/run_yahs.sh) by the YaHS developers.
 
 ```
 juicer_tools="java -Xmx32G -jar /n/home09/smorzechowski/bin/juicer/SLURM/scripts/juicer_tools.1.9.9_jcuda.0.8.jar pre"

@@ -2,6 +2,9 @@
 
 This readme provides an overview of the analyses conducted in this manuscript. 
 
+Orzechowski, S. C., Doudin, D., Drew, A., Jonathan Schmitt, C., Shams, F., Wilson, C., Joseph, L., Ezaz, T., & Edwards, S. V. (2025). Neo-sex chromosomes track the mitochondrial phylogeny and exhibit an extensive added stratum of recombination suppression in honeyeaters (Aves: Meliphagidae). Genome Biology and Evolution, 17(12). https://doi.org/10.1093/gbe/evaf215
+
+
 The software and programs used in this manuscript include:
 
 - [FindZX](https://github.com/hsigeman/findZX)

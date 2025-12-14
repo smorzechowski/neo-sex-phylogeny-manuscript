@@ -79,7 +79,7 @@ lgs_minimap2_options = -x map-ont
 #Run
 /n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2021-12-07/01-nextpolish/NextPolish/nextPolish ./mel/run.cfg
 ```
-To scaffold the genomes to chromosome-level I used the HiC assembler YAHS. First I adapted an Arima pipeline to map HiC reads to the draft genomes.
+To scaffold the genomes to chromosome-level I used the HiC assembler YaHS. First I adapted an [Arima pipeline](https://github.com/ArimaGenomics/mapping_pipeline/blob/master/arima_mapping_pipeline.sh) available on Arima's github page to map HiC reads to the draft genomes.
 
 ```
 source activate samtools

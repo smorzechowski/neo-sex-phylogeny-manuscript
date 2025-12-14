@@ -151,7 +151,7 @@ perl $STATS $REP_DIR/$REP_LABEL.bam > $REP_DIR/$REP_LABEL.bam.stats
 
 echo "Finished Mapping Pipeline through Duplicate Removal"
 ```
-Next, I ran YAHS to scaffold the contigs using the HiC-aligned reads.
+Next, I ran YaHS to scaffold the contigs using the HiC-aligned reads. I adapted a [script](https://github.com/c-zhou/yahs/blob/main/scripts/run_yahs.sh) available on the YaHS github page.
 ```
 source activate pretextmap
 # installed samtools within pretextmap env too!
@@ -166,6 +166,41 @@ hicaln="/n/holyscratch01/edwards_lab/smorzechowski/meliphagid/analysis/2023-06-1
 #### run yahs scaffolding
 /n/home09/smorzechowski/bin/yahs/yahs -o ${outdir}/${out} ${contigs} ${hicaln} || exit 1
 
+```
+
+Next, I generated HiC contact maps and input files for [JuiceBox](https://github.com/aidenlab/Juicebox/wiki/Download), a GUI for manual curation of HiC assemblies. This is adapted from the same [script](https://github.com/c-zhou/yahs/blob/main/scripts/run_yahs.sh) by the YaHS developers.
+
+```
+
+juicer_tools="java -Xmx32G -jar /n/home09/smorzechowski/bin/juicer/SLURM/scripts/juicer_tools.1.9.9_jcuda.0.8.jar pre"
+
+# generate input file for juicer_tools
+(/n/home09/smorzechowski/bin/yahs/juicer pre ${outdir}/${out}.bin ${outdir}/${out}_scaffolds_final.agp ${contigs}.fai 2>${outdir}/tmp_juicer_pre.log | LC_ALL=C sort -k2,2d -k6,6d -T ${outdir} --parallel=8 -S32G | awk 'NF' > ${outdir}/alignments_sorted.txt.part) && (mv ${outdir}/alignments_sorted.txt.part ${outdir}/alignments_sorted.txt)
+
+## prepare chromosome size file from samtools index file
+# ${samtools} faidx ${outdir}/${out}_scaffolds_final.fa
+# cut -f1-2 ${outdir}/${out}_scaffolds_final.fa.fai >${outdir}/${out}_scaffolds_final.chrom.sizes
+
+## do juicer hic map
+#(${juicer_tools} ${outdir}/alignments_sorted.txt ${outdir}/${out}.hic.part ${outdir}/${out}_scaffolds_final.chrom.sizes) && (mv ${outdir}/${out}.hic.part ${outdir}/${out}.hic)
+
+#### this is to generate input file for juicer_tools - assembly (JBAT) mode (-a)
+# This file is the .hic format needed for JuiceBox, which you can use to manually check and correct HiC scaffolding errors.
+
+/n/home09/smorzechowski/bin/yahs/juicer pre -a -o ${outdir}/${out}_JBAT ${outdir}/${out}.bin ${outdir}/${out}_scaffolds_final.agp ${contigs}.fai 2>${outdir}/tmp_juicer_pre_JBAT.log
+cat ${outdir}/tmp_juicer_pre_JBAT.log | grep "PRE_C_SIZE" | cut -d' ' -f2- >${outdir}/${out}_JBAT.chrom.sizes
+(${juicer_tools} ${outdir}/${out}_JBAT.txt ${outdir}/${out}_JBAT.hic.part ${outdir}/${out}_JBAT.chrom.sizes) && (mv ${outdir}/${out}_JBAT.hic.part ${outdir}/${out}_JBAT.hic)
+
+```
+I used the GUI [JuiceBox](https://aidenlab.org/juicebox/) on my laptop to compare the HiC contact matrix with the assembly and manually curate it as needed (rarely, contigs may be incorrectly scaffolded together by YaHS). I learned how to use JuiceBox from this [YouTube tutorial](https://www.youtube.com/watch?v=Nj7RhQZHM18).
+
+After manual curation, I ran the following to incoporate the manual edits into the final assembly version:
+
+```
+#### this is to generate final genome assembly file after manual curation with JuiceBox (JBAT)
+## the output assembly file after curation is ${outdir}/${out}_JBAT.review.assembly
+## the final output is ${outdir}/${out}_JBAT.FINAL.agp and ${outdir}/${out}_JBAT.FINAL.fa
+/n/home09/smorzechowski/bin/yahs/juicer post -o ${outdir}/${out}_JBAT ${outdir}/${out}_JBAT.review.assembly ${outdir}/${out}_JBAT.liftover.agp ${contigs}
 ```
 
 ## TOGA genome annotation
